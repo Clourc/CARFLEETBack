@@ -1,5 +1,11 @@
 package com.project.carfleet.entity;
 
+import java.util.List;
+
+import com.project.carfleet.entity.Fleet;
+import com.project.carfleet.entity.Model;
+import com.project.carfleet.entity.Reservations;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -72,5 +78,40 @@ public class Vehicule {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "fleet_id")
+    private Fleet fleet;
+
+    public Fleet getFleet() {
+        return fleet;
+    }
+
+    public void setFleet(Fleet fleet) {
+        this.fleet = fleet;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    @OneToMany(mappedBy = "vehicule")
+    private List<Reservations> reservations;
+
+    public List<Reservations> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservations> reservations) {
+        this.reservations = reservations;
     }
 }

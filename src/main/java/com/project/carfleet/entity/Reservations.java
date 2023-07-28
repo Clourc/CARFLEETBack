@@ -1,11 +1,8 @@
 package com.project.carfleet.entity;
 
 import jakarta.annotation.Generated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import java.util.Date;
-import jakarta.persistence.Entity;  
 
 @Entity
 public class Reservations {
@@ -49,5 +46,31 @@ public class Reservations {
         this.end_Date = end_Date;
     }
     
+    @ManyToOne
+    @JoinColumn(name = "vehicule_id")
+    private Vehicule vehicule;
+
+    public Vehicule getVehicule() {
+        return vehicule;
+    }
+
+
+    public void setVehicule(Vehicule vehicule) {
+        this.vehicule = vehicule;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+    public User getUser() {
+        return user;
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
 

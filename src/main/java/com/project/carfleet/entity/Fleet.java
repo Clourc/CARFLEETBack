@@ -1,9 +1,8 @@
 package com.project.carfleet.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Fleet {
@@ -34,4 +33,25 @@ public class Fleet {
         this.place = place;
     }
 
+    @OneToMany(mappedBy = "fleet")
+    private List<Vehicule> vehicules;
+
+    public List<Vehicule> getVehicules() {
+        return vehicules;
+    }
+
+    public void setVehicules(List<Vehicule> vehicules) {
+        this.vehicules = vehicules;
+    }
+
+    @OneToMany(mappedBy = "fleet")
+    private List<User> users;
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 }

@@ -1,8 +1,8 @@
 package com.project.carfleet.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity; 
+import java.util.List;
+
+import jakarta.persistence.*; 
 
 @Entity
 public class User {
@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int nbCp;
+    private String nbCp;
     private String firstName;
     private String lastName;
     private String email;
@@ -30,11 +30,11 @@ public class User {
       this.id = id;
     }
 
-    public int getNbCp() {
+    public String getNbCp() {
       return nbCp;
     }
 
-    public void setNbCp(int nbCp) {
+    public void setNbCp(String nbCp) {
       this.nbCp = nbCp;
     }
 
@@ -77,4 +77,30 @@ public class User {
     public void setNbLicence(String nbLicence) {
       this.nbLicence = nbLicence;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "fleet_id")
+    private Fleet fleet;
+
+    public Fleet getFleet() {
+      return fleet;
+    }
+
+    public void setFleet(Fleet fleet) {
+      this.fleet = fleet;
+    }
+
+    @OneToMany(mappedBy = "user")
+    private List<Reservations> reservations;
+
+
+    public List<Reservations> getReservations() {
+      return reservations;
+    }
+
+    public void setReservations(List<Reservations> reservations) {
+      this.reservations = reservations;
+    }
+
+
 }
