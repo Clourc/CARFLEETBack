@@ -19,7 +19,7 @@ public class User {
     private String nbLicence;
   
 
-    public Wizard() {
+    public User() {
     }
 
     public Long getId() {
@@ -77,14 +77,4 @@ public class User {
     public void setNbLicence(String nbLicence) {
       this.nbLicence = nbLicence;
     }
-
-    public String getFleetId() {
-      return fleetId;
-    }
-
-    public void setFleetId(String fleetId) {
-      this.fleetId = fleetId;
-    }
-
-    // getters and setters omitted for brevity
 }

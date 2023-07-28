@@ -1,4 +1,4 @@
-package main.java.com.project.carfleet.entity;
+package com.project.carfleet.entity;
 
 import jakarta.persistence.*;
 
