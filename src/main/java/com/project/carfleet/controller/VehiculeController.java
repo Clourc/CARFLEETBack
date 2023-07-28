@@ -1,4 +1,4 @@
-package main.java.com.project.carfleet.controller;
+package com.project.carfleet.controller;
 
 import org.springframework.stereotype.Controller;
 

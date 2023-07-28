@@ -1,4 +1,4 @@
-package main.java.com.project.carfleet.repository;
+package com.project.carfleet.repository;
 
 import com.project.carfleet.entity.Vehicule;
 
