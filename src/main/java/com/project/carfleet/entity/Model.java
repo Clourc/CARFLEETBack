@@ -31,7 +31,7 @@ public class Model {
         this.image = image;
     }
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "model") //Relation from vehicule
     private List<Vehicule> vehicules;
 
     public List<Vehicule> getVehicules() {

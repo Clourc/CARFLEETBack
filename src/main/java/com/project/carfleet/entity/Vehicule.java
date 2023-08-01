@@ -80,7 +80,7 @@ public class Vehicule {
         this.type = type;
     }
 
-    @ManyToOne
+    @ManyToOne //Relation to fleet
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
@@ -92,7 +92,7 @@ public class Vehicule {
         this.fleet = fleet;
     }
 
-    @ManyToOne
+    @ManyToOne //Relation to model
     @JoinColumn(name = "model_id")
     private Model model;
 
@@ -104,7 +104,7 @@ public class Vehicule {
         this.model = model;
     }
 
-    @OneToMany(mappedBy = "vehicule")
+    @OneToMany(mappedBy = "vehicule") //Relation from reservation
     private List<Reservations> reservations;
 
     public List<Reservations> getReservations() {

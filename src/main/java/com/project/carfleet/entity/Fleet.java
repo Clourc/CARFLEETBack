@@ -33,7 +33,7 @@ public class Fleet {
         this.place = place;
     }
 
-    @OneToMany(mappedBy = "fleet")
+    @OneToMany(mappedBy = "fleet") //Relation from vehicule
     private List<Vehicule> vehicules;
 
     public List<Vehicule> getVehicules() {
@@ -44,7 +44,7 @@ public class Fleet {
         this.vehicules = vehicules;
     }
 
-    @OneToMany(mappedBy = "fleet")
+    @OneToMany(mappedBy = "fleet") //Relation from user
     private List<User> users;
 
     public List<User> getUsers() {

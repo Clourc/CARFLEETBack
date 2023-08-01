@@ -78,7 +78,7 @@ public class User {
       this.nbLicence = nbLicence;
     }
 
-    @ManyToOne
+    @ManyToOne //Relation to fleet
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
@@ -90,7 +90,7 @@ public class User {
       this.fleet = fleet;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") //Relation from user
     private List<Reservations> reservations;
 
 
