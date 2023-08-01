@@ -1,9 +1,8 @@
 package com.project.carfleet.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Model {
@@ -32,4 +31,14 @@ public class Model {
         this.image = image;
     }
 
+    @OneToMany(mappedBy = "model")
+    private List<Vehicule> vehicules;
+
+    public List<Vehicule> getVehicules() {
+        return vehicules;
+    }
+
+    public void setVehicules(List<Vehicule> vehicules) {
+        this.vehicules = vehicules;
+    }
 }

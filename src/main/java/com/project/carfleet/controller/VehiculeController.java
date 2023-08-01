@@ -2,7 +2,7 @@ package com.project.carfleet.controller;
 
 import org.springframework.stereotype.Controller;
 
-import main.java.com.project.carfleet.repository.VehiculeRepository;
+import com.project.carfleet.repository.VehiculeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
