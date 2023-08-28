@@ -9,6 +9,6 @@ import com.project.carfleet.repository.UserRepository;
 public class UserController {
 
   @Autowired
-
   private UserRepository userRepository; 
+  
 }
