@@ -46,7 +46,7 @@ public class Reservations {
         this.end_Date = end_Date;
     }
     
-    @ManyToOne //Relation to vehicule
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to vehicule
     @JoinColumn(name = "vehicule_id")
     private Vehicule vehicule;
 
@@ -59,7 +59,7 @@ public class Reservations {
         this.vehicule = vehicule;
     }
 
-    @ManyToOne //Relation to user
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to user
     @JoinColumn(name = "user_id")
     private User user;
 
