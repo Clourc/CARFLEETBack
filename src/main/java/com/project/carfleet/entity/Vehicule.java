@@ -10,11 +10,11 @@ public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String brand;
     private String licencePlate;
 
-    public Vehicule(){}
+    public Vehicule() {
+    }
 
     public Long getId() {
         return id;
@@ -40,7 +40,8 @@ public class Vehicule {
         this.licencePlate = licencePlate;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to fleet
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to fleet
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
@@ -52,7 +53,7 @@ public class Vehicule {
         this.fleet = fleet;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to model
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to model
     @JoinColumn(name = "model_id")
     private Model model;
 
@@ -64,7 +65,7 @@ public class Vehicule {
         this.model = model;
     }
 
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL) //Relation from reservation
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL) // Relation from reservation
     private List<Reservations> reservations;
 
     public List<Reservations> getReservations() {
