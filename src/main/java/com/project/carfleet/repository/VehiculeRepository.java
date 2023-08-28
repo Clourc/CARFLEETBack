@@ -12,12 +12,12 @@ import java.util.List;
 @Repository
 public interface VehiculeRepository extends JpaRepository<Vehicule, Long>{
 
-    @Query(value = "SELECT * FROM vehicule WHERE energy = :energy", nativeQuery = true)
+    @Query(value = "SELECT v.* FROM vehicule AS v INNER JOIN model AS m ON v.model_id = m.id WHERE m.energy = :energy", nativeQuery = true)
     public List<Vehicule> findVehiculeByEnergy(@Param("energy") String energy);
 
-    @Query(value  = "SELECT * FROM vehicule WHERE type = :type", nativeQuery = true)
+    @Query(value  = "SELECT v.* FROM vehicule AS v INNER JOIN model AS m ON v.model_id = m.id WHERE m.type = :type", nativeQuery = true)
     public List<Vehicule> findVehiculeByType(@Param("type") String type);
 
-    @Query(value = "SELECT * FROM vehicule WHERE type = :type AND energy = :energy", nativeQuery = true)
+    @Query(value = "SELECT v.* FROM vehicule AS v INNER JOIN model AS m ON v.model_id = m.id WHERE m.type = :type AND m.energy = :energy", nativeQuery = true)
     public List<Vehicule> findVehiculeByTypeAndEnergy(@Param("type") String type, @Param("energy") String energy);
 }
