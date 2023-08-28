@@ -78,7 +78,7 @@ public class User {
       this.nbLicence = nbLicence;
     }
 
-    @ManyToOne //Relation to fleet
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to fleet
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
@@ -90,7 +90,7 @@ public class User {
       this.fleet = fleet;
     }
 
-    @OneToMany(mappedBy = "user") //Relation from user
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) //Relation from user
     private List<Reservations> reservations;
 
 

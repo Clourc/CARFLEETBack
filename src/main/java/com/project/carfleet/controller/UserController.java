@@ -23,9 +23,7 @@ import com.project.carfleet.repository.UserRepository;
 public class UserController {
 
   @Autowired
-
   private UserRepository userRepository; 
-
 
   @GetMapping ("/users")
   @ResponseBody
@@ -72,5 +70,6 @@ if (id <= 0) {
 public ResponseEntity<String> postUser(@RequestBody User user) {
     userRepository.save(user);
     return ResponseEntity.status(HttpStatus.CREATED).body("User saved successfully");
+
 }
 }
