@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 @Entity
 public class Model {
 
-    public Model(Long id, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
-        this.id = id;
+    public Model(String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
         this.image = image;
         this.energy = energy;
         this.type = type;

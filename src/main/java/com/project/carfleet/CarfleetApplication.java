@@ -47,7 +47,6 @@ public class CarfleetApplication {
 			List<User> userListStrasbourg = new ArrayList<>();
 			userListStrasbourg.add(aurelie);
 			strasbourg.setUsers(userListStrasbourg);
-			// strasbourg.getUsers().add(aurelie);
 			strasbourg.getUsers().add(yannick);
 			aurelie.setFleet(strasbourg);
 			yannick.setFleet(strasbourg);
@@ -57,7 +56,6 @@ public class CarfleetApplication {
 			List<User> userListParis = new ArrayList<>();
 			userListParis.add(jamal);
 			paris.setUsers(userListParis);
-			// paris.getUsers().add(jamal);
 			paris.getUsers().add(lucas);
 			jamal.setFleet(paris);
 			lucas.setFleet(paris);
@@ -68,27 +66,25 @@ public class CarfleetApplication {
 			List<User> userListMarseille = new ArrayList<>();
 			userListMarseille.add(richard);
 			marseille.setUsers(userListMarseille);
-			// marseille.getUsers().add(richard);
 			richard.setFleet(marseille);
 			fleetRepository.save(marseille);
 
-			Vehicule vehicule1 = new Vehicule(1L, "renault", "ZO-123-AA");
-			Vehicule vehicule2 = new Vehicule(2L, "renault", "CL-234-BB");
-			Vehicule vehicule3 = new Vehicule(3L, "renault", "KA-345-CC");
-			Vehicule vehicule4 = new Vehicule(4L, "renault", "ME-456-DD");
-			Vehicule vehicule5 = new Vehicule(5L, "citroen", "BE-567-EE");
-			Vehicule vehicule6 = new Vehicule(6L, "peugeot", "BO-678-FF");
-			Vehicule vehicule7 = new Vehicule(7L, "renault", "TR-789-GG");
+			Vehicule vehicule1 = new Vehicule("renault", "ZO-123-AA");
+			Vehicule vehicule2 = new Vehicule("renault", "CL-234-BB");
+			Vehicule vehicule3 = new Vehicule("renault", "KA-345-CC");
+			Vehicule vehicule4 = new Vehicule("renault", "ME-456-DD");
+			Vehicule vehicule5 = new Vehicule("citroen", "BE-567-EE");
+			Vehicule vehicule6 = new Vehicule("peugeot", "BO-678-FF");
+			Vehicule vehicule7 = new Vehicule("renault", "TR-789-GG");
 
 
-			Model model1 = new Model(1L, "https://i.imgur.com/FZ5BdEW.png", "electric", "citadine", "ZOE R110", 5, 5);
-			Model model2 = new Model(2L, "https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
-			Model model3 = new Model(3L, "https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
-			Model model4 = new Model(4L, "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
-			Model model5 = new Model(5L, "https://i.imgur.com/ldO9jOD.jpg", "electric", "berline", "e BERLINGO shine", 5, 7);
-			Model model6 = new Model(6L, "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
-			Model model7 = new Model(7L, "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
+			Model model1 = new Model("https://i.imgur.com/FZ5BdEW.png", "electric", "citadine", "ZOE R110", 5, 5);
+			Model model2 = new Model("https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
+			Model model3 = new Model("https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
+			Model model4 = new Model("https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
+			Model model5 = new Model("https://i.imgur.com/ldO9jOD.jpg", "electric", "berline", "e BERLINGO shine", 5, 7);
+			Model model6 = new Model("https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
+			Model model7 = new Model("https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
 		};
 	}
 }
-
