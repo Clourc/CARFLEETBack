@@ -12,8 +12,7 @@ import jakarta.persistence.*;
 public class Vehicule {
     
 
-    public Vehicule(Long id, String brand, String licencePlate) {
-        this.id = id;
+    public Vehicule(String brand, String licencePlate) {
         this.brand = brand;
         this.licencePlate = licencePlate;
     }
