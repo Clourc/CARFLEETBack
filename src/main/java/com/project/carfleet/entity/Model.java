@@ -7,6 +7,16 @@ import jakarta.persistence.*;
 @Entity
 public class Model {
 
+    public Model(Long id, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+        this.id = id;
+        this.image = image;
+        this.energy = energy;
+        this.type = type;
+        this.modelName = modelName;
+        this.nbDoors = nbDoors;
+        this.nbSeats = nbSeats;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

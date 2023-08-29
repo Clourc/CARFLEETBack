@@ -7,6 +7,11 @@ import jakarta.persistence.*;
 @Entity
 public class Fleet {
 
+    public Fleet(long id, String place) {
+        this.id = id;
+        this.place = place;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
