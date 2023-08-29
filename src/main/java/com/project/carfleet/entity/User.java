@@ -7,6 +7,15 @@ import jakarta.persistence.*;
 @Entity
 public class User {
 
+    public User(String nbCp, String firstName, String lastName, String email, String phone, String nbLicence) {
+    this.nbCp = nbCp;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phone = phone;
+    this.nbLicence = nbLicence;
+  }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

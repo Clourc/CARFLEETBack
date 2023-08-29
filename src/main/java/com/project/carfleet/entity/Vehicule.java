@@ -6,6 +6,12 @@ import jakarta.persistence.*;
 
 @Entity
 public class Vehicule {
+    
+
+    public Vehicule(String brand, String licencePlate) {
+        this.brand = brand;
+        this.licencePlate = licencePlate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
