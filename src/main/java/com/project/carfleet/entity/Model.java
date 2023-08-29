@@ -7,10 +7,70 @@ import jakarta.persistence.*;
 @Entity
 public class Model {
 
+    public Model(Long id, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+        this.id = id;
+        this.image = image;
+        this.energy = energy;
+        this.type = type;
+        this.modelName = modelName;
+        this.nbDoors = nbDoors;
+        this.nbSeats = nbSeats;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String image;
+    
+    private String energy;
+    private String type;
+    private String modelName;
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(String energy) {
+        this.energy = energy;
+    }
+
+    private int nbDoors;
+    public int getNbDoors() {
+        return nbDoors;
+    }
+
+    public void setNbDoors(int nbDoors) {
+        this.nbDoors = nbDoors;
+    }
+
+    private int nbSeats;
+    public int getNbSeats() {
+        return nbSeats;
+    }
+
+    public void setNbSeats(int nbSeats) {
+        this.nbSeats = nbSeats;
+    }
+
+
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+   
 
     public Model() {
     }
