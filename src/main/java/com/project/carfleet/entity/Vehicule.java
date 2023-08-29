@@ -10,19 +10,21 @@ import jakarta.persistence.*;
 
 @Entity
 public class Vehicule {
+    
+
+    public Vehicule(String brand, String licencePlate) {
+        this.brand = brand;
+        this.licencePlate = licencePlate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String brand;
     private String licencePlate;
-    private String energy;
-    private int nbDoors;
-    private int nbSeats;
-    private String type;
 
-    public Vehicule(){}
+    public Vehicule() {
+    }
 
     public Long getId() {
         return id;
@@ -48,39 +50,7 @@ public class Vehicule {
         this.licencePlate = licencePlate;
     }
 
-    public String getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(String energy) {
-        this.energy = energy;
-    }
-
-    public int getNbDoors() {
-        return nbDoors;
-    }
-
-    public void setNbDoors(int nbDoors) {
-        this.nbDoors = nbDoors;
-    }
-
-    public int getNbSeats() {
-        return nbSeats;
-    }
-
-    public void setNbSeats(int nbSeats) {
-        this.nbSeats = nbSeats;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to fleet
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to fleet
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
@@ -92,7 +62,7 @@ public class Vehicule {
         this.fleet = fleet;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to model
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to model
     @JoinColumn(name = "model_id")
     private Model model;
 
@@ -104,7 +74,7 @@ public class Vehicule {
         this.model = model;
     }
 
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL) //Relation from reservation
+    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL) // Relation from reservation
     private List<Reservations> reservations;
 
     public List<Reservations> getReservations() {
