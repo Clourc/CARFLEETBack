@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 @Entity
 public class User {
 
-    public User(Long id, String nbCp, String firstName, String lastName, String email, String phone, String nbLicence) {
-    this.id = id;
+    public User(String nbCp, String firstName, String lastName, String email, String phone, String nbLicence) {
     this.nbCp = nbCp;
     this.firstName = firstName;
     this.lastName = lastName;

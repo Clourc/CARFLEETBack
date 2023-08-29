@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 @Entity
 public class Fleet {
 
-    public Fleet(long id, String place) {
-        this.id = id;
+    public Fleet(String place) {
         this.place = place;
     }
 
