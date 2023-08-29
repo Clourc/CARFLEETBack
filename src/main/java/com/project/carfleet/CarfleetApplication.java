@@ -85,6 +85,46 @@ public class CarfleetApplication {
 			Model model5 = new Model("https://i.imgur.com/ldO9jOD.jpg", "electric", "berline", "e BERLINGO shine", 5, 7);
 			Model model6 = new Model("https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
 			Model model7 = new Model("https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
-		};
-	}
-}
+
+			
+					String[] brandArray = {"renault", "renault", "renault", "renault", "citroen", "peugeot", "renault"};
+					String[] licensePlates = {"ZO-123-AA", "CL-234-BB", "KA-345-CC", "ME-456-DD", "BE-567-EE", "BO-678-FF", "TR-789-GG"};
+			
+					String[] imageUrls = {
+						"https://i.imgur.com/FZ5BdEW.png",
+						"https://i.imgur.com/52m5kEK.png",
+						"https://i.imgur.com/Ja7IsPL.jpg",
+						"https://i.imgur.com/5Z2ZQ8u.jpg",
+						"https://i.imgur.com/ldO9jOD.jpg",
+						"https://i.imgur.com/Oy4emF7.jpg",
+						"https://i.imgur.com/ZOUyLBS.jpg"
+					};
+					String[] energies = {"electric", "essence", "essence", "essence", "electric", "diesel", "diesel"};
+					String[] types = {"citadine", "citadine", "citadine", "berline", "berline", "fourgon", "fourgon"};
+					String[] modelNames = {"ZOE R110", "CLIO RS Line", "KANGOO 3", "MEGANE 3 phase 3", "e BERLINGO shine", "BOXER Asphalt 333", "TRAFIC Grand confort"};
+					int[] nbDoors = {5, 5, 5, 5, 7, 3, 4};
+					int[] nbSeats = {5, 5, 5, 5, 7, 3, 4};
+			
+					Vehicule[] vehicules = new Vehicule[brandArray.length];
+					Model[] models = new Model[imageUrls.length];
+			
+					for (int i = 0; i < brandArray.length; i++) {
+						vehicules[i] = new Vehicule(brandArray[i], licensePlates[i]);
+						models[i] = new Model(imageUrls[i], energies[i], types[i], modelNames[i], nbDoors[i], nbSeats[i]);
+						
+						vehicules[i].setModel(models[i]);
+					}
+				
+				}
+			
+			}
+
+
+
+
+
+
+
+
+		
+
