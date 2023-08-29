@@ -1,5 +1,6 @@
 package com.project.carfleet.controller;
 
+import com.project.carfleet.dto.VehiculeDTO;
 import com.project.carfleet.entity.Vehicule;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class VehiculeController {
 
     @GetMapping(value = "/vehicules")
     @ResponseBody
-    public List<Vehicule> getVehicules(@RequestParam(defaultValue = "", required = false) String energy,
+    public List<VehiculeDTO> getVehicules(@RequestParam(defaultValue = "", required = false) String energy,
                                        @RequestParam(defaultValue = "", required = false) String type){
         boolean typeCheck = type.equals("citadine") || type.equals("utilitaire");
         boolean energyCheck = energy.equals("essence") || energy.equals("électrique");
@@ -33,23 +34,24 @@ public class VehiculeController {
         }
         if(!type.isEmpty()){
             if(!energy.isEmpty()){
-                return vehiculeRepository.findVehiculeByTypeAndEnergy(type, energy);
+                return convertListVehiculeToDTO(vehiculeRepository.findVehiculeByTypeAndEnergy(type, energy));
             }
-            return vehiculeRepository.findVehiculeByType(type);
+            return convertListVehiculeToDTO(vehiculeRepository.findVehiculeByType(type));
         } else {
             if(!energy.isEmpty()){
-                return vehiculeRepository.findVehiculeByEnergy(energy);
+                return convertListVehiculeToDTO(vehiculeRepository.findVehiculeByEnergy(energy));
             }
         }
-        return vehiculeRepository.findAll();
+        return convertListVehiculeToDTO(vehiculeRepository.findAll());
     }
 
     @GetMapping("/vehicules/{id}")
     @ResponseBody
-    public Vehicule getVehiculeById(@PathVariable Long id){
+    public VehiculeDTO getVehiculeById(@PathVariable Long id){
         Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
         if(optionalVehicule.isPresent()){
-            return optionalVehicule.get();
+            Vehicule v = optionalVehicule.get();
+            return new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), v.getModel().getModelName());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "vehicule not found");
         }
@@ -70,5 +72,13 @@ public class VehiculeController {
             return "Vehicule id=" + id + " deleted";
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicule not found");
+    }
+
+    private List<VehiculeDTO> convertListVehiculeToDTO(List<Vehicule> vehicules){
+        List<VehiculeDTO> vehiculesDTO = new ArrayList<>();
+        for(Vehicule v : vehicules){
+            vehiculesDTO.add(new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), v.getModel().getModelName()));
+        }
+        return vehiculesDTO;
     }
 }

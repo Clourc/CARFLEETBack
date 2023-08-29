@@ -2,10 +2,6 @@ package com.project.carfleet.entity;
 
 import java.util.List;
 
-import com.project.carfleet.entity.Fleet;
-import com.project.carfleet.entity.Model;
-import com.project.carfleet.entity.Reservations;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -49,6 +45,7 @@ public class Vehicule {
     public void setLicencePlate(String licencePlate) {
         this.licencePlate = licencePlate;
     }
+
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to fleet
     @JoinColumn(name = "fleet_id")
