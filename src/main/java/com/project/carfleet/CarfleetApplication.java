@@ -1,5 +1,6 @@
 package com.project.carfleet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,13 +8,16 @@ import com.project.carfleet.entity.Fleet;
 import com.project.carfleet.entity.Model;
 import com.project.carfleet.entity.User;
 import com.project.carfleet.entity.Vehicule;
+import com.project.carfleet.repository.UserRepository;
 
 @SpringBootApplication
 public class CarfleetApplication {
-
+@Autowired
+private static UserRepository userRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(CarfleetApplication.class, args);
-	}
+
+	
 
 	User aurelie = new User(1L, "1234567A", "aurelie", "ziegler", "aurelie.ziegler@example.com", "0601020304", "AZ123");
 	User yannick = new User(2L, "2345678Y", "yannick", "minck", "yannickminck@example.com", "0602030405", "YM456");
@@ -28,20 +32,20 @@ public class CarfleetApplication {
 
 	strasbourg.getUsers().add(aurelie);
 	strasbourg.getUsers().add(yannick);
-	aurelie.getUser().add(strasbourg);
-	yannick.getUser().add(strasbourg);
+	aurelie.setFleet(strasbourg);
+	yannick.setFleet(strasbourg);
 	userRepository.save(aurelie);
 	userRepository.save(yannick);
 
 	paris.getUsers().add(jamal);
 	paris.getUsers().add(lucas);
-	jamal.getUser().add(paris);
-	lucas.getUser().add(paris);
+	jamal.setFleet(paris);
+	lucas.setFleet(paris);
 	userRepository.save(jamal);
 	userRepository.save(lucas);
 
 	marseille.getUsers().add(richard);
-	richard.getUser().add(marseille);
+	richard.setFleet(marseille);
 	userRepository.save(richard);
 
 Vehicule vehicule1 = new Vehicule(1L, "renault", "ZO-123-AA");
@@ -60,7 +64,7 @@ Model model4 = new Model(4L, "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berl
 Model model5 = new Model(5L, "https://i.imgur.com/ldO9jOD.jpg", "electric", "berline", "e BERLINGO shine", 5, 7);
 Model model6 = new Model(6L, "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
 Model model7 = new Model(7L, "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
-
+	}
 
 }
 
