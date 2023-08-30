@@ -26,8 +26,8 @@ public class VehiculeController {
     @ResponseBody
     public List<Vehicule> getVehicules(@RequestParam(defaultValue = "", required = false) String energy,
                                        @RequestParam(defaultValue = "", required = false) String type){
-        boolean typeCheck = type.equals("citadine") || type.equals("utilitaire");
-        boolean energyCheck = energy.equals("essence") || energy.equals("électrique");
+        boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
+        boolean energyCheck = energy.equals("essence") || energy.equals("electric") || energy.equals("diesel");
         if((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect parameter(s) provided");
         }
