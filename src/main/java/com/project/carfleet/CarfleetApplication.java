@@ -155,6 +155,7 @@ public class CarfleetApplication {
 			vehiculeRepository.save(vehicule5);
 			vehiculeRepository.save(vehicule6);
 			vehiculeRepository.save(vehicule7);
+
 		};
 	}
 }
