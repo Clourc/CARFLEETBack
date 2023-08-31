@@ -1,5 +1,6 @@
 package com.project.carfleet.controller;
 
+import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehiculeDTO;
 import com.project.carfleet.entity.Vehicule;
 import org.springframework.http.HttpStatus;
@@ -51,7 +52,8 @@ public class VehiculeController {
         Optional<Vehicule> optionalVehicule = vehiculeRepository.findById(id);
         if(optionalVehicule.isPresent()){
             Vehicule v = optionalVehicule.get();
-            return new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), v.getModel().getModelName());
+            ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
+            return new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "vehicule not found");
         }
@@ -77,7 +79,8 @@ public class VehiculeController {
     private List<VehiculeDTO> convertListVehiculeToDTO(List<Vehicule> vehicules){
         List<VehiculeDTO> vehiculesDTO = new ArrayList<>();
         for(Vehicule v : vehicules){
-            vehiculesDTO.add(new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), v.getModel().getModelName()));
+           ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
+            vehiculesDTO.add(new VehiculeDTO(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model));
         }
         return vehiculesDTO;
     }
