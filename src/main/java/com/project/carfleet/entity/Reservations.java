@@ -1,6 +1,5 @@
 package com.project.carfleet.entity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -46,30 +45,30 @@ public class Reservations {
         this.end_Date = end_Date;
     }
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to vehicule
-    @JoinColumn(name = "vehicule_id")
-    private Vehicule vehicule;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to vehicle
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 
-    public Vehicule getVehicule() {
-        return vehicule;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
 
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) //Relation to user
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 }

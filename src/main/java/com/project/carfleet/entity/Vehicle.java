@@ -5,10 +5,10 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-public class Vehicule {
+public class Vehicle {
     
 
-    public Vehicule(String brand, String licencePlate) {
+    public Vehicle(String brand, String licencePlate) {
         this.brand = brand;
         this.licencePlate = licencePlate;
     }
@@ -19,7 +19,7 @@ public class Vehicule {
     private String brand;
     private String licencePlate;
 
-    public Vehicule() {
+    public Vehicle() {
     }
 
     public Long getId() {
@@ -71,7 +71,7 @@ public class Vehicule {
         this.model = model;
     }
 
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL) // Relation from reservation
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL) // Relation from reservation
     private List<Reservations> reservations;
 
     public List<Reservations> getReservations() {
