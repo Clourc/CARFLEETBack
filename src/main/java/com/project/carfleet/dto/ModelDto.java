@@ -11,7 +11,8 @@ private int nbDoors;
 private int nbSeats;
 
 
-public ModelDto(String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+public ModelDto(Long id, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+    this.id = id;
     this.image = image;
     this.energy = energy;
     this.type = type;

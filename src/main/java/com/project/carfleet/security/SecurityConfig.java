@@ -16,19 +16,64 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
 
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter){ this.jwtRequestFilter = jwtRequestFilter; }
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/users/login").permitAll()
-                        .requestMatchers("/admin-only").hasAuthority("ADMIN")
-                        .requestMatchers("/all").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(
+                                "/users/login"
+                                , "/users"
+                                , "/users/{id}"
+                                , "/users/{id}/delete"
+                                , "/users/register"
+                                , "/vehicles"
+                                , "/vehicles/{id}"
+                                , "/vehicles/{id}/delete"
+                                , "/vehicles/add"
+                                , "/fleets"
+                                , "/fleet/{id}"
+                                , "/fleet/{id}/delete"
+                                , "/models"
+                                , "/models/{id}"
+                                , "/models/{id}/delete"
+                                , "/reservations"
+                                , "/reservations/{id}"
+                                , "/reservations/{id}/delete").permitAll()
+                        .requestMatchers("/admin-only"
+                                    /*, "/users"
+                                    , "/users/{id}/delete"
+                                    , "/users/register"
+                                    , "/vehicles/{id}/delete"
+                                    , "/vehicles/{id}/add"
+                                    , "/fleets"
+                                    , "/fleets/{id}"
+                                    , "/fleets/{id}/delete"
+                                    , "/models/{id}/delete"
+                                    , "/models/add"
+                                    , "/reservations/{id}/delete"
+                                    , "/reservations/{id}/add"*/)
+                        .hasAuthority("ADMIN")
+                        .requestMatchers("/all-users"
+                                    /*, "/users/{id}"
+                                    , "/vehicles"
+                                    , "/vehicles/{id}"
+                                    , "/fleets/{id}"
+                                    , "/models"
+                                    , "/models/{id}"
+                                    , "/reservations"
+                                    , "/reservations/{id}"
+                                    , "/reservations/add"*/)
+                        .hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers("other_route_example/**")
                         .authenticated())
                 .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())

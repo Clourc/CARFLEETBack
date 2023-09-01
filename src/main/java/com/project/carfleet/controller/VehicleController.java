@@ -3,6 +3,7 @@ package com.project.carfleet.controller;
 import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
@@ -20,8 +21,10 @@ import java.util.Optional;
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
-    public VehicleController(VehicleRepository injectedRepository) {
+    private final ConvertToDto convertToDto;
+    public VehicleController(VehicleRepository injectedRepository, ConvertToDto convertToDto) {
         this.vehicleRepository = injectedRepository;
+        this.convertToDto = convertToDto;
     }
 
     @GetMapping(value = "/vehicles")
@@ -30,20 +33,25 @@ public class VehicleController {
                                           @RequestParam(defaultValue = "", required = false) String type){
         boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
         boolean energyCheck = energy.equals("essence") || energy.equals("electric") || energy.equals("diesel");
+        List<Vehicle> vehicles = new ArrayList<>();
         if((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect parameter(s) provided");
         }
         if(!type.isEmpty()){
             if(!energy.isEmpty()){
-                return convertListVehicleToDTO(vehicleRepository.findVehicleByTypeAndEnergy(type, energy));
+                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(type, energy);
+                return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
-            return convertListVehicleToDTO(vehicleRepository.findVehicleByType(type));
+            vehicles = vehicleRepository.findVehicleByType(type);
+            return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
         } else {
             if(!energy.isEmpty()){
-                return convertListVehicleToDTO(vehicleRepository.findVehicleByEnergy(energy));
+                vehicles = vehicleRepository.findVehicleByEnergy(energy);
+                return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
         }
-        return convertListVehicleToDTO(vehicleRepository.findAll());
+        vehicles = vehicleRepository.findAll();
+        return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
     }
 
     @GetMapping("/vehicles/{id}")
@@ -52,8 +60,7 @@ public class VehicleController {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
         if(optionalVehicle.isPresent()){
             Vehicle v = optionalVehicle.get();
-            ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
-            return new VehicleDto(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model);
+            return convertToDto.convertVehicleToDto(v);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "vehicle not found");
         }
@@ -76,12 +83,4 @@ public class VehicleController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found");
     }
 
-    private List<VehicleDto> convertListVehicleToDTO(List<Vehicle> vehicles){
-        List<VehicleDto> vehiclesDTO = new ArrayList<>();
-        for(Vehicle v : vehicles){
-            ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
-            vehiclesDTO.add(new VehicleDto(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model));
-        }
-        return vehiclesDTO;
-    }
 }

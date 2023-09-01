@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CarfleetApplication {
 
-	private DBGenerator generatorService;
+	private final DBGenerator generatorService;
 
 	public CarfleetApplication(DBGenerator generatorService){
 		this.generatorService = generatorService;

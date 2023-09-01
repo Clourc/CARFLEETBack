@@ -1,5 +1,6 @@
 package com.project.carfleet.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -8,18 +9,25 @@ public class Reservations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date start_Date;
+
     private Date end_Date;
 
 
     public Reservations() {
     }
 
+    public Reservations(Date start_Date, Date end_Date){
+        this.start_Date = start_Date;
+        this.end_Date = end_Date;
+    }
 
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;

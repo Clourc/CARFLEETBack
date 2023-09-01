@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.project.carfleet.dto.UserDto;
 import com.project.carfleet.jwt.JwtUtil;
+import com.project.carfleet.service.ConvertToDto;
 import com.project.carfleet.service.UserService;
 import com.project.carfleet.utility.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,29 +35,32 @@ public class UserController {
     private JwtUtil jwtUtil;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ConvertToDto convertToDto;
 
     @GetMapping("/users")
     @ResponseBody
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> getAllUsers() {
+        List<UserEntity> users = userRepository.findAll();
+        return convertToDto.convertListToDto(users, convertToDto::convertUserToDto);
     }
 
     @GetMapping("/users/{id}")
     @ResponseBody
-    public ResponseEntity<UserEntity> getUserById(@PathVariable long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not found");
         }
-
-        Optional<UserEntity> user = userRepository.findById((long) id);
-        if (user.isPresent()) {
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        Optional<UserEntity> optionalUser = userRepository.findById((long) id);
+        if (optionalUser.isPresent()) {
+            UserEntity user = optionalUser.get();
+            return new ResponseEntity<>(convertToDto.convertUserToDto(user), HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/users/{id}/delete")
     @ResponseBody
     public ResponseEntity<String> deleteUser(@PathVariable long id) {
 
@@ -108,7 +112,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/all-users")
     @ResponseBody
     public ResponseEntity<ApiResponse<Object>> userAdminData(){
         HashMap<String, Object> data = new HashMap<>();
