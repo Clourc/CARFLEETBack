@@ -3,6 +3,7 @@ package com.project.carfleet.controller;
 import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
@@ -20,8 +21,10 @@ import java.util.Optional;
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
-    public VehicleController(VehicleRepository injectedRepository) {
+    private final ConvertToDto convertToDto;
+    public VehicleController(VehicleRepository injectedRepository, ConvertToDto convertToDto) {
         this.vehicleRepository = injectedRepository;
+        this.convertToDto = convertToDto;
     }
 
     @GetMapping(value = "/vehicles")
@@ -35,15 +38,15 @@ public class VehicleController {
         }
         if(!type.isEmpty()){
             if(!energy.isEmpty()){
-                return convertListVehicleToDTO(vehicleRepository.findVehicleByTypeAndEnergy(type, energy));
+                return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByTypeAndEnergy(type, energy));
             }
-            return convertListVehicleToDTO(vehicleRepository.findVehicleByType(type));
+            return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByType(type));
         } else {
             if(!energy.isEmpty()){
-                return convertListVehicleToDTO(vehicleRepository.findVehicleByEnergy(energy));
+                return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByEnergy(energy));
             }
         }
-        return convertListVehicleToDTO(vehicleRepository.findAll());
+        return convertToDto.convertListVehicleToDto(vehicleRepository.findAll());
     }
 
     @GetMapping("/vehicles/{id}")
@@ -53,7 +56,7 @@ public class VehicleController {
         if(optionalVehicle.isPresent()){
             Vehicle v = optionalVehicle.get();
             ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
-            return new VehicleDto(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model);
+            return new VehicleDto(v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "vehicle not found");
         }
@@ -76,12 +79,4 @@ public class VehicleController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found");
     }
 
-    private List<VehicleDto> convertListVehicleToDTO(List<Vehicle> vehicles){
-        List<VehicleDto> vehiclesDTO = new ArrayList<>();
-        for(Vehicle v : vehicles){
-            ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
-            vehiclesDTO.add(new VehicleDto(v.getId(), v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model));
-        }
-        return vehiclesDTO;
-    }
 }

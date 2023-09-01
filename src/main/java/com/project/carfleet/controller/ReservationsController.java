@@ -1,5 +1,8 @@
 package com.project.carfleet.controller;
   
+import com.project.carfleet.dto.ModelDto;
+import com.project.carfleet.dto.VehicleDto;
+import com.project.carfleet.entity.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,7 +61,9 @@ public class ReservationsController {
         Optional<Reservations> reservation = reservationsRepository.findById(id);
         if (reservation.isPresent()) {
             Reservations r = reservation.get();
-            ReservationsDto reservationsDto =  new ReservationsDto(r.getId(), r.getStart_Date(), r.getEnd_Date());   
+            Vehicle rV = r.getVehicle();
+            VehicleDto v = new VehicleDto(rV.getBrand(), rV.getLicencePlate(), rV.getFleet().getPlace(), new ModelDto());
+            ReservationsDto reservationsDto =  new ReservationsDto(r.getId(), r.getStart_Date(), r.getEnd_Date());
             return ResponseEntity.ok(reservationsDto);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservations introuvables");

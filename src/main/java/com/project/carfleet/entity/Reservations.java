@@ -15,6 +15,9 @@ public class Reservations {
     public Reservations() {
     }
 
+    public Reservations(Date start_Date, Date end_Date){
+
+    }
 
     public Long getId() {
         return id;

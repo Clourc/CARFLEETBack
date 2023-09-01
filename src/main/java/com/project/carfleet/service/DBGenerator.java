@@ -1,15 +1,13 @@
 package com.project.carfleet.service;
 
 import com.project.carfleet.entity.*;
-import com.project.carfleet.repository.FleetRepository;
-import com.project.carfleet.repository.ModelRepository;
-import com.project.carfleet.repository.RoleRepository;
-import com.project.carfleet.repository.VehicleRepository;
+import com.project.carfleet.repository.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,13 +16,15 @@ public class DBGenerator {
     private final ModelRepository modelRepository;
     private final VehicleRepository vehicleRepository;
     private final FleetRepository fleetRepository;
+    private final ReservationsRepository reservationsRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
 
-    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository, FleetRepository fleetRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
+    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository, FleetRepository fleetRepository, ReservationsRepository reservationsRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
         this.modelRepository = modelRepository;
         this.vehicleRepository = vehicleRepository;
         this.fleetRepository = fleetRepository;
+        this.reservationsRepository = reservationsRepository;
         this.roleRepository = roleRepository;
         this.bcryptEncoder = bcryptEncoder;
     }
@@ -139,6 +139,8 @@ public class DBGenerator {
 
         modelRepository.saveAll(models);
         vehicleRepository.saveAll(vehicles);
+
+        generateReservations();
     }
 
     public void generateRoles(){
@@ -149,4 +151,8 @@ public class DBGenerator {
         generateFleetDatas();
     }
 
+    public void generateReservations(){
+        Reservations resa1 = new Reservations(new Date(), new Date());
+        System.out.println(resa1);
+    }
 }
