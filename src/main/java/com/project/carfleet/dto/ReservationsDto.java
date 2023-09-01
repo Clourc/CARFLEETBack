@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class ReservationsDto {
 
-
     private Long id;
     private Date start_Date;
     private Date end_Date;
@@ -27,11 +26,9 @@ public class ReservationsDto {
         return start_Date;
     }
 
-
     public Date getEnd_Date() {
         return end_Date;
     }
-
 
     public VehicleDto getVehicleDto() {
         return vehicleDto;
