@@ -3,8 +3,7 @@ package com.project.carfleet.dto;
 import java.util.Date;
 
 public class ReservationsDto {
-    
-    
+
     private Long id;
     private Date start_Date;
     private Date end_Date;
@@ -18,17 +17,13 @@ public class ReservationsDto {
     public long getId() {
         return id;
     }
-        
+
     public Date getStart_Date() {
         return start_Date;
     }
- 
-    
+
     public Date getEnd_Date() {
         return end_Date;
     }
 
-   
-    }
-    
-
+}
