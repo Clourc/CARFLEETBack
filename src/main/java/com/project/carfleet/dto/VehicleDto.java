@@ -1,3 +1,4 @@
+
 package com.project.carfleet.dto;
 
 public class VehicleDto {
@@ -6,9 +7,10 @@ public class VehicleDto {
     private String brand;
     private String licencePlate;
     private String fleet;
-    private String model;
+    private ModelDto model;
 
-    public VehicleDto(Long id, String brand, String licencePlate, String fleet, String model) {
+
+    public VehicleDto(Long id, String brand, String licencePlate, String fleet, ModelDto model) {
         this.id = id;
         this.brand = brand;
         this.licencePlate = licencePlate;
@@ -32,7 +34,7 @@ public class VehicleDto {
         return fleet;
     }
 
-    public String getModel() {
+    public ModelDto getModel() {
         return model;
     }
 
