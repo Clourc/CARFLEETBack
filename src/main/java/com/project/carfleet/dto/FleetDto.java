@@ -1,6 +1,7 @@
 package com.project.carfleet.dto;
 
 public class FleetDto {
+
     private Long id;
     private String place;
 
@@ -9,20 +10,9 @@ public class FleetDto {
         this.place = place;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    public Long getId(){ return id; }
     public String getPlace() {
         return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
 }

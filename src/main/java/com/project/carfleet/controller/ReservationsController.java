@@ -3,6 +3,7 @@ package com.project.carfleet.controller;
 import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.service.ConvertToDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,24 +31,22 @@ public class ReservationsController {
 
     @Autowired
     private ReservationsRepository reservationsRepository;
+    @Autowired
+    private ConvertToDto convertToDto;
 
     @GetMapping("/reservations")
     @ResponseBody
     public List<ReservationsDto> getAllReservations() {
        List <Reservations> reservationsList = reservationsRepository.findAll();
-       List <ReservationsDto> reservationsListDto = new ArrayList<>();
-       for (Reservations r : reservationsList) {
-     reservationsListDto.add(new ReservationsDto(r.getId(), r.getStart_Date(),r.getEnd_Date()  ));
-        
+       return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
     }
-    return reservationsListDto;
-}
+
     
-    @PostMapping("/reservations")
+    @PostMapping("/reservations/add")
     @ResponseBody
     public Reservations createReservations(@RequestBody Reservations reservations) {     
-         reservationsRepository.save(reservations);
-    return reservations;
+        reservationsRepository.save(reservations);
+        return reservations;
  }
     
     
@@ -60,17 +59,13 @@ public class ReservationsController {
 
         Optional<Reservations> reservation = reservationsRepository.findById(id);
         if (reservation.isPresent()) {
-            Reservations r = reservation.get();
-            Vehicle rV = r.getVehicle();
-            VehicleDto v = new VehicleDto(rV.getBrand(), rV.getLicencePlate(), rV.getFleet().getPlace(), new ModelDto());
-            ReservationsDto reservationsDto =  new ReservationsDto(r.getId(), r.getStart_Date(), r.getEnd_Date());
-            return ResponseEntity.ok(reservationsDto);
+            return ResponseEntity.ok(convertToDto.convertResaToDto(reservation.get()));
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservations introuvables");
         }
     }
 
-    @DeleteMapping("/reservations/delete/{id}")
+    @DeleteMapping("/reservations/{id}/delete")
     @ResponseBody
     public ResponseEntity<String> deleteReservations(@PathVariable Long id) {
         if (id <= 0) {

@@ -47,11 +47,11 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getNbCp() {
+    public String getCp() {
         return CP;
     }
 
-    public void setNbCp(String nbCp) {
+    public void setCp(String nbCp) {
         this.CP = CP;
     }
 

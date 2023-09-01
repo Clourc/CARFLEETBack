@@ -3,6 +3,7 @@ package com.project.carfleet.dto;
 import com.project.carfleet.entity.Role;
 
 public class UserDto {
+    private Long id;
     private String CP;
     private String firstName;
     private String lastName;
@@ -11,7 +12,8 @@ public class UserDto {
     private String phone;
     private String nbLicence;
     private Role role;
-    public UserDto(String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role){
+    public UserDto(Long id, String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role){
+        this.id = id;
         this.CP = CP;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,6 +24,7 @@ public class UserDto {
         this.role = role;
     }
 
+    public Long getId(){ return id; }
     public String getCP() {
         return CP;
     }

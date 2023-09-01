@@ -33,20 +33,25 @@ public class VehicleController {
                                           @RequestParam(defaultValue = "", required = false) String type){
         boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
         boolean energyCheck = energy.equals("essence") || energy.equals("electric") || energy.equals("diesel");
+        List<Vehicle> vehicles = new ArrayList<>();
         if((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect parameter(s) provided");
         }
         if(!type.isEmpty()){
             if(!energy.isEmpty()){
-                return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByTypeAndEnergy(type, energy));
+                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(type, energy);
+                return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
-            return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByType(type));
+            vehicles = vehicleRepository.findVehicleByType(type);
+            return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
         } else {
             if(!energy.isEmpty()){
-                return convertToDto.convertListVehicleToDto(vehicleRepository.findVehicleByEnergy(energy));
+                vehicles = vehicleRepository.findVehicleByEnergy(energy);
+                return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
         }
-        return convertToDto.convertListVehicleToDto(vehicleRepository.findAll());
+        vehicles = vehicleRepository.findAll();
+        return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
     }
 
     @GetMapping("/vehicles/{id}")
@@ -55,8 +60,7 @@ public class VehicleController {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
         if(optionalVehicle.isPresent()){
             Vehicle v = optionalVehicle.get();
-            ModelDto model =  new ModelDto(v.getModel().getImage(), v.getModel().getEnergy(), v.getModel().getType(), v.getModel().getModelName(), v.getModel().getNbDoors(), v.getModel().getNbSeats());
-            return new VehicleDto(v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model);
+            return convertToDto.convertVehicleToDto(v);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "vehicle not found");
         }

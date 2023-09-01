@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,16 +30,14 @@ public class ModelController {
 
     @Autowired
     private ModelRepository modelRepository;
+    @Autowired
+    private ConvertToDto convertToDto;
 
     @GetMapping("/models")
     @ResponseBody
     public List<ModelDto> getAllModels() {
         List<Model> modelsList = modelRepository.findAll();
-        List<ModelDto> modelsListDto = new ArrayList<>();
-        for (Model m : modelsList) {
-            modelsListDto.add(new ModelDto( m.getImage(), m.getEnergy(), m.getType(), m.getModelName(), m.getNbDoors(), m.getNbSeats()));
-        }
-        return modelsListDto;
+        return convertToDto.convertListToDto(modelsList, convertToDto::convertModelToDto);
     }
 
     @GetMapping("/models/{id}")
@@ -46,23 +45,21 @@ public class ModelController {
     public ResponseEntity<ModelDto> getModelById(@PathVariable long id) {
         Optional<Model> model = modelRepository.findById(id);
         if (model.isPresent()) {
-            Model m = model.get();
-            ModelDto modelDto = new ModelDto(m.getImage(), m.getEnergy(), m.getType(), m.getModelName(), m.getNbDoors(), m.getNbSeats());
-            return ResponseEntity.ok(modelDto);
+            return ResponseEntity.ok(convertToDto.convertModelToDto(model.get()));
             
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "model not found");
         }
     }
 
-    @PostMapping("/models")
+    @PostMapping("/models/add")
     @ResponseBody
     public String postmodels(@RequestBody Model model) {
         modelRepository.save(model);
         return "save ok";
     }
 
-    @DeleteMapping("/models/delete/{id}")
+    @DeleteMapping("/models/{id}/delete")
     @ResponseBody
     public String deletemodel(@PathVariable(value = "id") Long modelId) {
         modelRepository.deleteById(modelId);

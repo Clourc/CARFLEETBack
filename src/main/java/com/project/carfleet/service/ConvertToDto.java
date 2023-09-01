@@ -1,33 +1,41 @@
 package com.project.carfleet.service;
 
-import com.project.carfleet.dto.ModelDto;
-import com.project.carfleet.dto.VehicleDto;
-import com.project.carfleet.entity.Model;
-import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.dto.*;
+import com.project.carfleet.entity.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 public class ConvertToDto {
 
     public ModelDto convertModelToDto(Model model){
-        return new ModelDto(model.getImage(), model.getEnergy(), model.getType(), model.getModelName(), model.getNbDoors(), model.getNbSeats());
+        return new ModelDto(model.getId(), model.getImage(), model.getEnergy(), model.getType(), model.getModelName(), model.getNbDoors(), model.getNbSeats());
     }
 
-    public FleetDto
+    public FleetDto convertFleetToDto(Fleet fleet){
+        return new FleetDto(fleet.getId(), fleet.getPlace());
+    }
+
+    public UserDto convertUserToDto(UserEntity user){
+        return new UserDto(user.getId(), user.getCp(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getPhone(), user.getNbLicence(), user.getRole());
+    }
+
+    public ReservationsDto convertResaToDto(Reservations resa){
+        return new ReservationsDto(resa.getId(), resa.getStart_Date(), resa.getEnd_Date(), convertVehicleToDto(resa.getVehicle()), convertUserToDto(resa.getUser()));
+    }
 
     public VehicleDto convertVehicleToDto(Vehicle vehicle){
-        return new VehicleDto(vehicle.getBrand(), vehicle.getLicencePlate(), vehicle.getFleet(), convertModelToDto(vehicle.getModel()));
+        return new VehicleDto(vehicle.getId(), vehicle.getBrand(), vehicle.getLicencePlate(), convertFleetToDto(vehicle.getFleet()), convertModelToDto(vehicle.getModel()));
     }
 
-    public List<VehicleDto> convertListVehicleToDto(List<Vehicle> vehicles){
-        List<VehicleDto> vehiclesDto = new ArrayList<>();
-        for(Vehicle v : vehicles){
-            ModelDto model = convertModelToDto(v.getModel());
-            vehiclesDto.add(new VehicleDto(v.getBrand(), v.getLicencePlate(), v.getFleet().getPlace(), model));
+    public <D, T> List<D> convertListToDto(List<T> elements, Function<T, D> convertMethod){
+        List<D> elementsDto = new ArrayList<>();
+        for(T element : elements){
+            elementsDto.add(convertMethod.apply(element));
         }
-        return vehiclesDto;
+        return elementsDto;
     }
 }

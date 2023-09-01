@@ -5,10 +5,8 @@ import com.project.carfleet.repository.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class DBGenerator {
@@ -17,14 +15,16 @@ public class DBGenerator {
     private final VehicleRepository vehicleRepository;
     private final FleetRepository fleetRepository;
     private final ReservationsRepository reservationsRepository;
+    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
 
-    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository, FleetRepository fleetRepository, ReservationsRepository reservationsRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
+    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository, FleetRepository fleetRepository, ReservationsRepository reservationsRepository, UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
         this.modelRepository = modelRepository;
         this.vehicleRepository = vehicleRepository;
         this.fleetRepository = fleetRepository;
         this.reservationsRepository = reservationsRepository;
+        this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bcryptEncoder = bcryptEncoder;
     }
@@ -152,7 +152,11 @@ public class DBGenerator {
     }
 
     public void generateReservations(){
-        Reservations resa1 = new Reservations(new Date(), new Date());
-        System.out.println(resa1);
+        Reservations resa1 = new Reservations(new Date(1693994400000L), new Date(1694599200000L));
+        System.out.println("Resa start date: " + resa1.getStart_Date());
+        resa1.setUser(userRepository.findById(1L).get());
+        resa1.setVehicle(vehicleRepository.findById(1L).get());
+        reservationsRepository.save(resa1);
+        System.out.println(TimeZone.getDefault());
     }
 }
