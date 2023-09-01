@@ -22,6 +22,7 @@ import java.text.ParseException;
 
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReservationsController {
 
     @Autowired

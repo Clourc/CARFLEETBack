@@ -37,25 +37,25 @@ public class Fleet {
         this.place = place;
     }
 
-    @OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL) //Relation from vehicule
-    private List<Vehicule> vehicules;
+    @OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL) //Relation from vehicle
+    private List<Vehicle> vehicles;
 
-    public List<Vehicule> getVehicules() {
-        return vehicules;
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setVehicules(List<Vehicule> vehicules) {
-        this.vehicules = vehicules;
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL) //Relation from user
-    private List<User> users;
+    private List<UserEntity> users;
 
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<UserEntity> users) {
         this.users = users;
     }
 }

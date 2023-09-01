@@ -90,14 +90,14 @@ public class Model {
         this.image = image;
     }
 
-    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL) //Relation from vehicule
-    private List<Vehicule> vehicules;
+    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL) //Relation from vehicle
+    private List<Vehicle> vehicles;
 
-    public List<Vehicule> getVehicules() {
-        return vehicules;
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setVehicules(List<Vehicule> vehicules) {
-        this.vehicules = vehicules;
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }

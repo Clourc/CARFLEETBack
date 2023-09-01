@@ -4,10 +4,14 @@ import java.util.Optional;
 
 import javax.swing.text.html.Option;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.entity.Model;
 import com.project.carfleet.repository.ModelRepository;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:4200")
 public class ModelController {
 
     @Autowired
@@ -28,16 +34,24 @@ public class ModelController {
 
     @GetMapping("/models")
     @ResponseBody
-    public List<Model> getAllModels() {
-        return modelRepository.findAll();
+    public List<ModelDto> getAllModels() {
+        List<Model> modelsList = modelRepository.findAll();
+        List<ModelDto> modelsListDto = new ArrayList<>();
+        for (Model m : modelsList) {
+            modelsListDto.add(new ModelDto( m.getImage(), m.getEnergy(), m.getType(), m.getModelName(), m.getNbDoors(), m.getNbSeats()));
+        }
+        return modelsListDto;
     }
 
     @GetMapping("/models/{id}")
     @ResponseBody
-    public Model getModelById(@PathVariable Long id) {
+    public ResponseEntity<ModelDto> getModelById(@PathVariable long id) {
         Optional<Model> model = modelRepository.findById(id);
         if (model.isPresent()) {
-            return model.get();
+            Model m = model.get();
+            ModelDto modelDto = new ModelDto(m.getImage(), m.getEnergy(), m.getType(), m.getModelName(), m.getNbDoors(), m.getNbSeats());
+            return ResponseEntity.ok(modelDto);
+            
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "model not found");
         }
@@ -56,5 +70,8 @@ public class ModelController {
         modelRepository.deleteById(modelId);
         return "delete ok";
     }
+
+
+
 
 }
