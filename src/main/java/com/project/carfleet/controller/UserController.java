@@ -37,8 +37,6 @@ public class UserController {
     @ResponseBody
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
-
-
     }
 
     @GetMapping("/users/{id}")
@@ -54,8 +52,6 @@ public class UserController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         }
-
-
     }
 
     @DeleteMapping("/users/{id}")
@@ -72,7 +68,6 @@ public class UserController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         }
-
     }
 
     @PostMapping("/users/register")
