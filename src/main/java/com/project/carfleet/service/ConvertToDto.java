@@ -24,7 +24,7 @@ public class ConvertToDto {
     }
 
     public ReservationsDto convertResaToDto(Reservations resa){
-        return new ReservationsDto(resa.getId(), resa.getStart_Date(), resa.getEnd_Date(), convertVehicleToDto(resa.getVehicle()), convertUserToDto(resa.getUser()));
+        return new ReservationsDto(resa.getId(), resa.getStart_Date(), resa.getEnd_Date(), resa.getReason(), convertVehicleToDto(resa.getVehicle()), convertUserToDto(resa.getUser()));
     }
 
     public VehicleDto convertVehicleToDto(Vehicle vehicle){

@@ -152,11 +152,10 @@ public class DBGenerator {
     }
 
     public void generateReservations(){
-        Reservations resa1 = new Reservations(new Date(1693994400000L), new Date(1694599200000L));
+        Reservations resa1 = new Reservations(new Date(1693994400000L), new Date(1694599200000L), "Test1");
         System.out.println("Resa start date: " + resa1.getStart_Date());
         resa1.setUser(userRepository.findById(1L).get());
         resa1.setVehicle(vehicleRepository.findById(1L).get());
         reservationsRepository.save(resa1);
-        System.out.println(TimeZone.getDefault());
     }
 }

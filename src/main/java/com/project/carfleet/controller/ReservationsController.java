@@ -3,6 +3,8 @@ package com.project.carfleet.controller;
 import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.repository.UserRepository;
+import com.project.carfleet.repository.VehicleRepository;
 import com.project.carfleet.service.ConvertToDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,10 @@ public class ReservationsController {
     private ReservationsRepository reservationsRepository;
     @Autowired
     private ConvertToDto convertToDto;
+    @Autowired
+    private VehicleRepository vehicleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/reservations")
     @ResponseBody
@@ -44,9 +50,12 @@ public class ReservationsController {
     
     @PostMapping("/reservations/add")
     @ResponseBody
-    public Reservations createReservations(@RequestBody Reservations reservations) {     
-        reservationsRepository.save(reservations);
-        return reservations;
+    public ReservationsDto createReservations(@RequestBody ReservationsDto reservations) {
+        Reservations newResa = new Reservations(reservations.getStart_Date(), reservations.getEnd_Date(), reservations.getReason());
+        newResa.setVehicle(vehicleRepository.findById(reservations.getVehicle().getId()).get());
+        newResa.setUser(userRepository.findById(reservations.getUser().getId()).get());
+        reservationsRepository.save(newResa);
+        return convertToDto.convertResaToDto(newResa);
  }
     
     
