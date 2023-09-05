@@ -33,16 +33,16 @@ public class DBGenerator {
         Role user = roleRepository.findById(1L).get();
         Role admin = roleRepository.findById(2L).get();
 
-        UserEntity aurelie = new UserEntity("1234567A", "aurelie", "ziegler", "aurelie.ziegler@example.com", bcryptEncoder.encode("aurZIE123!"), "0601020304", "AZ123", admin);
-        UserEntity yannick = new UserEntity("2345678Y", "yannick", "minck", "yannickminck@example.com", bcryptEncoder.encode("yanMIN456!"), "0602030405", "YM456", user);
-        UserEntity jamal = new UserEntity("3456789J", "jamal", "ouldrabia", "jamal.ouldrabia@example.com", bcryptEncoder.encode("jamOUL789!"), "0603040506", "JO789", user);
-        UserEntity lucas = new UserEntity("4567890L", "lucas", "corbino", "lucas.corbino@example.com", bcryptEncoder.encode("lucCOR012!"), "0604050607", "LC012", admin);
-        UserEntity richard = new UserEntity("5678901R", "richard", "nguyen", "richard.nguyen@example.com", bcryptEncoder.encode("ricNGU345!"), "0605060708", "RN345", user);
+        UserEntity aurelie = new UserEntity("1234567A", "Aurelie", "Ziegler", "aurelie.ziegler@example.com", bcryptEncoder.encode("aurZIE123!"), "0601020304", "AZ123", admin);
+        UserEntity yannick = new UserEntity("2345678Y", "Yannick", "Minck", "yannickminck@example.com", bcryptEncoder.encode("yanMIN456!"), "0602030405", "YM456", user);
+        UserEntity jamal = new UserEntity("3456789J", "Jamal", "Ouldrabia", "jamal.ouldrabia@example.com", bcryptEncoder.encode("jamOUL789!"), "0603040506", "JO789", user);
+        UserEntity lucas = new UserEntity("4567890L", "Lucas", "Corbino", "lucas.corbino@example.com", bcryptEncoder.encode("lucCOR012!"), "0604050607", "LC012", admin);
+        UserEntity richard = new UserEntity("5678901R", "Richard", "Nguyen", "richard.nguyen@example.com", bcryptEncoder.encode("ricNGU345!"), "0605060708", "RN345", user);
 
-        Fleet strasbourg = new Fleet("strasbourg");
-        Fleet paris = new Fleet("paris");
-        Fleet lyon = new Fleet("lyon");
-        Fleet marseille = new Fleet("marseille");
+        Fleet strasbourg = new Fleet("Strasbourg");
+        Fleet paris = new Fleet("Paris");
+        Fleet lyon = new Fleet("Lyon");
+        Fleet marseille = new Fleet("Marseille");
 
         List<UserEntity> userListStrasbourg = new ArrayList<>();
         userListStrasbourg.add(aurelie);
@@ -76,11 +76,11 @@ public class DBGenerator {
         Vehicle vehicle6 = new Vehicle("peugeot", "BO-678-FF");
         Vehicle vehicle7 = new Vehicle("renault", "TR-789-GG");
 
-        Model model1 = new Model("https://i.imgur.com/FZ5BdEW.png", "electric", "citadine", "ZOE R110", 5, 5);
+        Model model1 = new Model("https://i.imgur.com/FZ5BdEW.png", "électrique", "citadine", "ZOE R110", 5, 5);
         Model model2 = new Model("https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
         Model model3 = new Model("https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
         Model model4 = new Model("https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
-        Model model5 = new Model("https://i.imgur.com/ldO9jOD.jpg", "electric", "berline", "e BERLINGO shine", 5, 7);
+        Model model5 = new Model("https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
         Model model6 = new Model("https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
         Model model7 = new Model("https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
 

@@ -1,8 +1,5 @@
 package com.project.carfleet.controller;
-  
-import com.project.carfleet.dto.ModelDto;
-import com.project.carfleet.dto.VehicleDto;
-import com.project.carfleet.entity.Vehicle;
+
 import com.project.carfleet.repository.UserRepository;
 import com.project.carfleet.repository.VehicleRepository;
 import com.project.carfleet.service.ConvertToDto;
@@ -18,10 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 
 
@@ -42,8 +35,12 @@ public class ReservationsController {
 
     @GetMapping("/reservations")
     @ResponseBody
-    public List<ReservationsDto> getAllReservations() {
-       List <Reservations> reservationsList = reservationsRepository.findAll();
+    public List<ReservationsDto> getAllReservations(@RequestParam(defaultValue = "", required = false) Long vehicleId) {
+        if(vehicleId != null){
+            List<Reservations> reservationsList = reservationsRepository.findResaByVehicle(vehicleId);
+            return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+        }
+        List <Reservations> reservationsList = reservationsRepository.findAll();
        return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
     }
 
