@@ -10,19 +10,21 @@ public class Reservations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
-    @Temporal(TemporalType.TIMESTAMP)
+
     private Date start_Date;
 
     private Date end_Date;
+
+    private String reason;
 
 
     public Reservations() {
     }
 
-    public Reservations(Date start_Date, Date end_Date){
+    public Reservations(Date start_Date, Date end_Date, String reason){
         this.start_Date = start_Date;
         this.end_Date = end_Date;
+        this.reason = reason;
     }
 
     public Long getId() {
@@ -78,6 +80,14 @@ public class Reservations {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 }
 

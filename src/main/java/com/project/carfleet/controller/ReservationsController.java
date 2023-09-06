@@ -1,8 +1,7 @@
 package com.project.carfleet.controller;
-  
-import com.project.carfleet.dto.ModelDto;
-import com.project.carfleet.dto.VehicleDto;
-import com.project.carfleet.entity.Vehicle;
+
+import com.project.carfleet.repository.UserRepository;
+import com.project.carfleet.repository.VehicleRepository;
 import com.project.carfleet.service.ConvertToDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 
 
@@ -33,20 +28,31 @@ public class ReservationsController {
     private ReservationsRepository reservationsRepository;
     @Autowired
     private ConvertToDto convertToDto;
+    @Autowired
+    private VehicleRepository vehicleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/reservations")
     @ResponseBody
-    public List<ReservationsDto> getAllReservations() {
-       List <Reservations> reservationsList = reservationsRepository.findAll();
+    public List<ReservationsDto> getAllReservations(@RequestParam(defaultValue = "", required = false) Long vehicleId) {
+        if(vehicleId != null){
+            List<Reservations> reservationsList = reservationsRepository.findResaByVehicle(vehicleId);
+            return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+        }
+        List <Reservations> reservationsList = reservationsRepository.findAll();
        return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
     }
 
     
     @PostMapping("/reservations/add")
     @ResponseBody
-    public Reservations createReservations(@RequestBody Reservations reservations) {     
-        reservationsRepository.save(reservations);
-        return reservations;
+    public ReservationsDto createReservations(@RequestBody ReservationsDto reservations) {
+        Reservations newResa = new Reservations(reservations.getStart_Date(), reservations.getEnd_Date(), reservations.getReason());
+        newResa.setVehicle(vehicleRepository.findById(reservations.getVehicle().getId()).get());
+        newResa.setUser(userRepository.findById(reservations.getUser().getId()).get());
+        reservationsRepository.save(newResa);
+        return convertToDto.convertResaToDto(newResa);
  }
     
     
