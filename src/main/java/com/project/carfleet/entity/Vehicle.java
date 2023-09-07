@@ -8,15 +8,13 @@ import jakarta.persistence.*;
 public class Vehicle {
     
 
-    public Vehicle(String brand, String licencePlate) {
-        this.brand = brand;
+    public Vehicle(String licencePlate) {
         this.licencePlate = licencePlate;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String brand;
     private String licencePlate;
 
     public Vehicle() {
@@ -28,14 +26,6 @@ public class Vehicle {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getLicencePlate() {

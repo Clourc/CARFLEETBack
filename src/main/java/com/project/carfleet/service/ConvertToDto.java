@@ -12,7 +12,7 @@ import java.util.function.Function;
 public class ConvertToDto {
 
     public ModelDto convertModelToDto(Model model){
-        return new ModelDto(model.getId(), model.getImage(), model.getEnergy(), model.getType(), model.getModelName(), model.getNbDoors(), model.getNbSeats());
+        return new ModelDto(model.getId(), model.getBrand(), model.getImage(), model.getEnergy(), model.getType(), model.getModelName(), model.getNbDoors(), model.getNbSeats());
     }
 
     public FleetDto convertFleetToDto(Fleet fleet){
@@ -28,7 +28,7 @@ public class ConvertToDto {
     }
 
     public VehicleDto convertVehicleToDto(Vehicle vehicle){
-        return new VehicleDto(vehicle.getId(), vehicle.getBrand(), vehicle.getLicencePlate(), convertFleetToDto(vehicle.getFleet()), convertModelToDto(vehicle.getModel()));
+        return new VehicleDto(vehicle.getId(), vehicle.getLicencePlate(), convertFleetToDto(vehicle.getFleet()), convertModelToDto(vehicle.getModel()));
     }
 
     public <D, T> List<D> convertListToDto(List<T> elements, Function<T, D> convertMethod){
