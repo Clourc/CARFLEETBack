@@ -68,21 +68,21 @@ public class DBGenerator {
         richard.setFleet(marseille);
         fleetRepository.save(marseille);
 
-        Vehicle vehicle1 = new Vehicle("renault", "ZO-123-AA");
-        Vehicle vehicle2 = new Vehicle("renault", "CL-234-BB");
-        Vehicle vehicle3 = new Vehicle("renault", "KA-345-CC");
-        Vehicle vehicle4 = new Vehicle("renault", "ME-456-DD");
-        Vehicle vehicle5 = new Vehicle("citroen", "BE-567-EE");
-        Vehicle vehicle6 = new Vehicle("peugeot", "BO-678-FF");
-        Vehicle vehicle7 = new Vehicle("renault", "TR-789-GG");
+        Vehicle vehicle1 = new Vehicle("ZO-123-AA");
+        Vehicle vehicle2 = new Vehicle("CL-234-BB");
+        Vehicle vehicle3 = new Vehicle("KA-345-CC");
+        Vehicle vehicle4 = new Vehicle("ME-456-DD");
+        Vehicle vehicle5 = new Vehicle("BE-567-EE");
+        Vehicle vehicle6 = new Vehicle("BO-678-FF");
+        Vehicle vehicle7 = new Vehicle("TR-789-GG");
 
-        Model model1 = new Model("https://i.imgur.com/FZ5BdEW.png", "électrique", "citadine", "ZOE R110", 5, 5);
-        Model model2 = new Model("https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
-        Model model3 = new Model("https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
-        Model model4 = new Model("https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
-        Model model5 = new Model("https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
-        Model model6 = new Model("https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
-        Model model7 = new Model("https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
+        Model model1 = new Model("renault", "https://i.imgur.com/FZ5BdEW.png", "électrique", "citadine", "ZOE R110", 5, 5);
+        Model model2 = new Model("renault", "https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
+        Model model3 = new Model("renault", "https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
+        Model model4 = new Model("renault", "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
+        Model model5 = new Model("renault","https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
+        Model model6 = new Model("renault", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
+        Model model7 = new Model("renault", "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
 
         List<Vehicle> model1List = new ArrayList<>();
         model1List.add(vehicle1);

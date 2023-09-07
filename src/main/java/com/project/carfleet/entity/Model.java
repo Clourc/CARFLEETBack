@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 @Entity
 public class Model {
 
-    public Model(String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+    public Model(String brand, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
+        this.brand = brand;
         this.image = image;
         this.energy = energy;
         this.type = type;
@@ -19,11 +20,20 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String brand;
     private String image;
-    
     private String energy;
     private String type;
     private String modelName;
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public String getModelName() {
         return modelName;
     }
@@ -41,6 +51,7 @@ public class Model {
     }
 
     private int nbDoors;
+
     public int getNbDoors() {
         return nbDoors;
     }
@@ -50,6 +61,7 @@ public class Model {
     }
 
     private int nbSeats;
+
     public int getNbSeats() {
         return nbSeats;
     }
@@ -57,8 +69,6 @@ public class Model {
     public void setNbSeats(int nbSeats) {
         this.nbSeats = nbSeats;
     }
-
-
 
 
     public String getType() {
@@ -69,7 +79,6 @@ public class Model {
         this.type = type;
     }
 
-   
 
     public Model() {
     }
