@@ -1,8 +1,10 @@
 package com.project.carfleet.dto;
 
+import com.project.carfleet.entity.Reservations;
+
 import java.util.Date;
 
-public class ReservationsDto {
+public class ReservationsDto{
 
 private Long id;
     private Date start_Date;
@@ -19,7 +21,6 @@ private Long id;
         this.vehicle = vehicle;
         this.user = user;
     }
-
 
     public Long getId(){ return id; }
     public Date getStart_Date() {
