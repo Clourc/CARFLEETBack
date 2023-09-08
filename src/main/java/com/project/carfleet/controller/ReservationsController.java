@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import com.project.carfleet.dto.ReservationsDto;
 import com.project.carfleet.entity.Reservations;
 import com.project.carfleet.repository.ReservationsRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -35,12 +37,20 @@ public class ReservationsController {
 
     @GetMapping("/reservations")
     @ResponseBody
-    public List<ReservationsDto> getAllReservations(@RequestParam(defaultValue = "", required = false) Long vehicleId) {
+    public List<ReservationsDto> getAllReservations(@RequestParam(defaultValue = "", required = false) Long vehicleId,
+                                                    @RequestParam(defaultValue = "", required = false) Long userId) {
+        List<Reservations> reservationsList = new ArrayList<Reservations>();
         if(vehicleId != null){
-            List<Reservations> reservationsList = reservationsRepository.findResaByVehicle(vehicleId);
+            reservationsList = reservationsRepository.findResaByVehicle(vehicleId);
             return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
         }
-        List <Reservations> reservationsList = reservationsRepository.findAll();
+        if(userId != null){
+            if(userRepository.findById(userId).get().getRole().getType().equals("USER")){
+            reservationsList = reservationsRepository.findResaByUser(userId);
+            return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+            }
+        }
+        reservationsList = reservationsRepository.findAll();
        return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
     }
 
