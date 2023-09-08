@@ -68,9 +68,12 @@ public class VehicleController {
 
     @PostMapping("/vehicles/add")
     @ResponseBody
-    public Vehicle postVehicle(@RequestBody Vehicle vehicleToAdd){
-        vehicleRepository.save(vehicleToAdd);
-        return vehicleToAdd;
+    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd){
+        Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
+        newVehicle.setFleet(vehicleToAdd.getFleet());
+        newVehicle.setModel(vehicleToAdd.getModel());
+        vehicleRepository.save(newVehicle);
+        return convertToDto.convertVehicleToDto(newVehicle);
     }
 
     @DeleteMapping("vehicles/{id}/delete")

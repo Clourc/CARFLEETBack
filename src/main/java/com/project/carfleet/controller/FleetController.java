@@ -34,7 +34,7 @@ public class FleetController {
         return new ResponseEntity<>(fleetDto, HttpStatus.OK);
     }
 
-    @GetMapping("/fleet/{id}")
+    @GetMapping("/fleets/{id}")
     public ResponseEntity<FleetDto> getFleetDtoById(@PathVariable long id) {
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID must be greater than zero");
@@ -48,7 +48,7 @@ public class FleetController {
         }
     }
 
-    @DeleteMapping("/fleet/delete/{id}")
+    @DeleteMapping("/fleets/delete/{id}")
     public ResponseEntity<String> deleteFleet(@PathVariable(value = "id") Long id) {
         Optional<Fleet> fleet = fleetRepository.findById(id);
         if (fleet.isPresent()) {
