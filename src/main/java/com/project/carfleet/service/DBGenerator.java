@@ -176,7 +176,16 @@ public class DBGenerator {
         resa6.setUser(userRepository.findById(2L).get());
         resa6.setVehicle(vehicleRepository.findById(6L).get());
 
-        List<Reservations> reservations = Arrays.asList(resa1, resa2, resa3, resa4, resa5, resa6);
+        Reservations resa7 = new Reservations(new Date(1694340000000L), new Date(1725962400000L), "Test7 en cours");
+        resa7.setUser(userRepository.findById(3L).get());
+        resa7.setVehicle(vehicleRepository.findById(7L).get());
+
+        Reservations resa8 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test8 à venir");
+        resa8.setUser(userRepository.findById(5L).get());
+        resa8.setVehicle(vehicleRepository.findById(7L).get());
+
+
+        List<Reservations> reservations = Arrays.asList(resa1, resa2, resa3, resa4, resa5, resa6, resa7, resa8);
         reservationsRepository.saveAll(reservations);
 
     }
