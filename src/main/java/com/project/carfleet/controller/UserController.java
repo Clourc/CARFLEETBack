@@ -13,13 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.project.carfleet.entity.UserEntity;
@@ -60,6 +54,17 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "/users/retrieve")
+    @ResponseBody
+    public ResponseEntity<UserDto> getUserByCP(@RequestParam String cp) {
+        Optional<UserEntity> optionalUser = userRepository.findByCP(cp);
+        if(optionalUser.isPresent()){
+            UserEntity user = optionalUser.get();
+            return new ResponseEntity<>(convertToDto.convertUserToDto(user), HttpStatus.OK);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "CP inexistant");
+    }
+
     @DeleteMapping("/users/{id}/delete")
     @ResponseBody
     public ResponseEntity<String> deleteUser(@PathVariable long id) {
@@ -98,6 +103,7 @@ public class UserController {
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @GetMapping("/admin-only")
     @ResponseBody
