@@ -31,49 +31,30 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/users/login"
+                                "/users/login").permitAll()
+                        .requestMatchers("/admin-only"
                                 , "/users"
-                                , "/users/{id}"
-                                , "/users/{cp}"
                                 , "/users/{id}/delete"
                                 , "/users/register"
-                                , "/vehicles"
-                                , "/vehicles/{id}"
                                 , "/vehicles/{id}/delete"
                                 , "/vehicles/add"
                                 , "/fleets"
-                                , "/fleet/{id}"
-                                , "/fleet/{id}/delete"
-                                , "/models"
-                                , "/models/{id}"
+                                , "/fleets/{id}/delete"
                                 , "/models/{id}/delete"
-                                , "/reservations"
-                                , "/reservations/{id}"
-                                , "/reservations/{id}/delete").permitAll()
-                        .requestMatchers("/admin-only"
-                                    /*, "/users"
-                                    , "/users/{id}/delete"
-                                    , "/users/register"
-                                    , "/vehicles/{id}/delete"
-                                    , "/vehicles/{id}/add"
-                                    , "/fleets"
-                                    , "/fleets/{id}"
-                                    , "/fleets/{id}/delete"
-                                    , "/models/{id}/delete"
-                                    , "/models/add"
-                                    , "/reservations/{id}/delete"
-                                    , "/reservations/{id}/add"*/)
+                                , "/models/add"
+                                , "/reservations/{id}/delete")
                         .hasAuthority("ADMIN")
                         .requestMatchers("/all-users"
-                                    /*, "/users/{id}"
-                                    , "/vehicles"
-                                    , "/vehicles/{id}"
-                                    , "/fleets/{id}"
-                                    , "/models"
-                                    , "/models/{id}"
-                                    , "/reservations"
-                                    , "/reservations/{id}"
-                                    , "/reservations/add"*/)
+                                , "/users/{id}"
+                                , "/users/retrieve"
+                                , "/vehicles"
+                                , "/vehicles/{id}"
+                                , "/fleets/{id}"
+                                , "/models"
+                                , "/models/{id}"
+                                , "/reservations"
+                                , "/reservations/{id}"
+                                , "/reservations/add")
                         .hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers("other_route_example/**")
                         .authenticated())
