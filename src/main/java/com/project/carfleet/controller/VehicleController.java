@@ -5,6 +5,7 @@ import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
 import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import com.project.carfleet.repository.VehicleRepository;
