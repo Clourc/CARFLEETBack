@@ -23,6 +23,7 @@ public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
     private final ConvertToDto convertToDto;
+
     public VehicleController(VehicleRepository injectedRepository, ConvertToDto convertToDto) {
         this.vehicleRepository = injectedRepository;
         this.convertToDto = convertToDto;
@@ -30,36 +31,44 @@ public class VehicleController {
 
     @GetMapping(value = "/vehicles")
     @ResponseBody
-    public List<VehicleDto> getVehicles(@RequestParam(defaultValue = "", required = false) String energy,
-                                          @RequestParam(defaultValue = "", required = false) String type){
+    public List<VehicleDto> getVehicles(@RequestParam Long fleetId,
+                                        @RequestParam(defaultValue = "", required = false) String energy,
+                                        @RequestParam(defaultValue = "", required = false) String type) {
         boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
         boolean energyCheck = energy.equals("essence") || energy.equals("électrique") || energy.equals("diesel");
         List<Vehicle> vehicles = new ArrayList<>();
-        if((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)){
+        if ((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect parameter(s) provided");
         }
-        if(!type.isEmpty()){
-            if(!energy.isEmpty()){
-                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(type, energy);
+        if (!type.isEmpty()) {
+            if (!energy.isEmpty()) {
+                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(fleetId, type, energy);
                 return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
-            vehicles = vehicleRepository.findVehicleByType(type);
+            vehicles = vehicleRepository.findVehicleByType(fleetId, type);
             return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
         } else {
-            if(!energy.isEmpty()){
-                vehicles = vehicleRepository.findVehicleByEnergy(energy);
+            if (!energy.isEmpty()) {
+                vehicles = vehicleRepository.findVehicleByEnergy(fleetId ,energy);
                 return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
         }
-        vehicles = vehicleRepository.findAll();
+        vehicles = vehicleRepository.findVehicleByFleet(fleetId);
+        return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
+    }
+
+    @GetMapping("/vehicles/fleet/{id}")
+    @ResponseBody
+    public List<VehicleDto> getVehicleByFleet(@PathVariable Long id) {
+        List<Vehicle> vehicles = vehicleRepository.findVehicleByFleet(id);
         return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
     }
 
     @GetMapping("/vehicles/{id}")
     @ResponseBody
-    public VehicleDto getVehicleById(@PathVariable Long id){
+    public VehicleDto getVehicleById(@PathVariable Long id) {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
-        if(optionalVehicle.isPresent()){
+        if (optionalVehicle.isPresent()) {
             Vehicle v = optionalVehicle.get();
             return convertToDto.convertVehicleToDto(v);
         } else {
@@ -69,7 +78,7 @@ public class VehicleController {
 
     @PostMapping("/vehicles/add")
     @ResponseBody
-    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd){
+    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd) {
         Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
         newVehicle.setFleet(vehicleToAdd.getFleet());
         newVehicle.setModel(vehicleToAdd.getModel());
@@ -78,9 +87,9 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicles/{id}/delete")
-    public String deleteVehicleById(@PathVariable Long id){
+    public String deleteVehicleById(@PathVariable Long id) {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
-        if(optionalVehicle.isPresent()){
+        if (optionalVehicle.isPresent()) {
             vehicleRepository.deleteById(id);
             return "Vehicle id=" + id + " deleted";
         }

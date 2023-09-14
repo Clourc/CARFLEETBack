@@ -31,7 +31,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/users/login").permitAll()
+                                "/users/login"
+                                , "/vehicles").permitAll()
                         .requestMatchers("/admin-only"
                                 , "/users"
                                 , "/users/{id}/delete"
