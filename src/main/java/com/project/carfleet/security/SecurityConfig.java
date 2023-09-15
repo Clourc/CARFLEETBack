@@ -34,6 +34,7 @@ public class SecurityConfig {
                                 "/users/login"
                                 , "/users"
                                 , "/users/{id}"
+                                , "/users/{cp}"
                                 , "/users/{id}/delete"
                                 , "/users/register"
                                 , "/vehicles"

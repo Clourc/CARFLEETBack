@@ -1,11 +1,11 @@
 package com.project.carfleet.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.project.carfleet.dto.ReservationsDto;
 import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Reservations {
+public class Reservations{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -80,8 +80,8 @@ public class DBGenerator {
         Model model2 = new Model("renault", "https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
         Model model3 = new Model("renault", "https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
         Model model4 = new Model("renault", "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
-        Model model5 = new Model("renault","https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
-        Model model6 = new Model("renault", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
+        Model model5 = new Model("citroen", "https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
+        Model model6 = new Model("peugeot", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
         Model model7 = new Model("renault", "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
 
         List<Vehicle> model1List = new ArrayList<>();
@@ -143,7 +143,7 @@ public class DBGenerator {
         generateReservations();
     }
 
-    public void generateRoles(){
+    public void generateRoles() {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER"));
         roles.add(new Role("ADMIN"));
@@ -151,11 +151,42 @@ public class DBGenerator {
         generateFleetDatas();
     }
 
-    public void generateReservations(){
+    public void generateReservations() {
         Reservations resa1 = new Reservations(new Date(1693994400000L), new Date(1694599200000L), "Test1");
-        System.out.println("Resa start date: " + resa1.getStart_Date());
         resa1.setUser(userRepository.findById(1L).get());
         resa1.setVehicle(vehicleRepository.findById(1L).get());
-        reservationsRepository.save(resa1);
+
+        Reservations resa2 = new Reservations(new Date(1694075737355L), new Date(1694685600000L), "Test2");
+        resa2.setUser(userRepository.findById(2L).get());
+        resa2.setVehicle(vehicleRepository.findById(2L).get());
+
+        Reservations resa3 = new Reservations(new Date(1694163600000L), new Date(1694768400000L), "Test3");
+        resa3.setUser(userRepository.findById(3L).get());
+        resa3.setVehicle(vehicleRepository.findById(3L).get());
+
+        Reservations resa4 = new Reservations(new Date(1694250000000L), new Date(1694854800000L), "Test4");
+        resa4.setUser(userRepository.findById(4L).get());
+        resa4.setVehicle(vehicleRepository.findById(4L).get());
+
+        Reservations resa5 = new Reservations(new Date(1694336400000L), new Date(1694941200000L), "Test5");
+        resa5.setUser(userRepository.findById(5L).get());
+        resa5.setVehicle(vehicleRepository.findById(5L).get());
+
+        Reservations resa6 = new Reservations(new Date(1672570800000L), new Date(1673175600000L), "Test6");
+        resa6.setUser(userRepository.findById(2L).get());
+        resa6.setVehicle(vehicleRepository.findById(6L).get());
+
+        Reservations resa7 = new Reservations(new Date(1694340000000L), new Date(1725962400000L), "Test7 en cours");
+        resa7.setUser(userRepository.findById(3L).get());
+        resa7.setVehicle(vehicleRepository.findById(7L).get());
+
+        Reservations resa8 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test8 à venir");
+        resa8.setUser(userRepository.findById(5L).get());
+        resa8.setVehicle(vehicleRepository.findById(7L).get());
+
+
+        List<Reservations> reservations = Arrays.asList(resa1, resa2, resa3, resa4, resa5, resa6, resa7, resa8);
+        reservationsRepository.saveAll(reservations);
+
     }
 }

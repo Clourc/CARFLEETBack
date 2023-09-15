@@ -48,6 +48,7 @@ public class UserService {
             throw new RuntimeException("Mot de passe incorrect");
         }
         Long roleId = user.getRole().getId();
+        userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
