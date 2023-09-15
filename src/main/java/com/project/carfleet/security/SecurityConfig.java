@@ -3,6 +3,7 @@ package com.project.carfleet.security;
 import com.project.carfleet.filter.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
 
@@ -31,11 +33,8 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/users/login"
-                                , "/vehicles").permitAll()
-                        .requestMatchers("/admin-only"
-                                , "/users"
-                                , "/users/{id}/delete"
+                                "/users/login", "/users").permitAll()
+                        .requestMatchers(                                 "/users/{id}/delete"
                                 , "/users/register"
                                 , "/vehicles/{id}/delete"
                                 , "/vehicles/add"
@@ -45,8 +44,7 @@ public class SecurityConfig {
                                 , "/models/add"
                                 , "/reservations/{id}/delete")
                         .hasAuthority("ADMIN")
-                        .requestMatchers("/all-users"
-                                , "/users/{id}"
+                        .requestMatchers("/users/{id}"
                                 , "/users/retrieve"
                                 , "/vehicles"
                                 , "/vehicles/{id}"

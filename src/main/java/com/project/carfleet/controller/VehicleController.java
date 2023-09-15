@@ -77,6 +77,7 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseBody
     public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd) {
         Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
@@ -87,6 +88,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicles/{id}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteVehicleById(@PathVariable Long id) {
         Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
         if (optionalVehicle.isPresent()) {
