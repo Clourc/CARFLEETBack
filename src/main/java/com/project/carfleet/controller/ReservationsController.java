@@ -105,19 +105,5 @@ public class ReservationsController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservations introuvables");
         }
-
-        // @GetMapping("/reservations-all")
-        // @ResponseBody
-        // public List<ReservationsDto> getAllReservations() {
-        //  List <Reservations> reservations = reservationsRepository.findAll();
-        //  List <ReservationsDto> reservationsDto = new ArrayList<>();
-        //     for (Reservations reservation : reservations) {
-        //         reservationsDto.add(new ReservationsDto( reservation.getId(), reservation.getStart_Date(), reservation.getEnd_Date()));
-        //     }
-        //     return reservationsDto;
-
-        // }
-
-
     }
 }

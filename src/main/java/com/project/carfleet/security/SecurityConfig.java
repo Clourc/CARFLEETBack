@@ -3,6 +3,7 @@ package com.project.carfleet.security;
 import com.project.carfleet.filter.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -13,6 +14,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
 
@@ -31,49 +33,27 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/users/login"
-                                , "/users"
-                                , "/users/{id}"
-                                , "/users/{cp}"
-                                , "/users/{id}/delete"
+                                "/users/login", "/users").permitAll()
+                        .requestMatchers(                                 "/users/{id}/delete"
                                 , "/users/register"
-                                , "/vehicles"
-                                , "/vehicles/{id}"
                                 , "/vehicles/{id}/delete"
                                 , "/vehicles/add"
                                 , "/fleets"
-                                , "/fleet/{id}"
-                                , "/fleet/{id}/delete"
+                                , "/fleets/{id}/delete"
+                                , "/models/{id}/delete"
+                                , "/models/add"
+                                , "/reservations/{id}/delete")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers("/users/{id}"
+                                , "/users/retrieve"
+                                , "/vehicles"
+                                , "/vehicles/{id}"
+                                , "/fleets/{id}"
                                 , "/models"
                                 , "/models/{id}"
-                                , "/models/{id}/delete"
                                 , "/reservations"
                                 , "/reservations/{id}"
-                                , "/reservations/{id}/delete").permitAll()
-                        .requestMatchers("/admin-only"
-                                    /*, "/users"
-                                    , "/users/{id}/delete"
-                                    , "/users/register"
-                                    , "/vehicles/{id}/delete"
-                                    , "/vehicles/{id}/add"
-                                    , "/fleets"
-                                    , "/fleets/{id}"
-                                    , "/fleets/{id}/delete"
-                                    , "/models/{id}/delete"
-                                    , "/models/add"
-                                    , "/reservations/{id}/delete"
-                                    , "/reservations/{id}/add"*/)
-                        .hasAuthority("ADMIN")
-                        .requestMatchers("/all-users"
-                                    /*, "/users/{id}"
-                                    , "/vehicles"
-                                    , "/vehicles/{id}"
-                                    , "/fleets/{id}"
-                                    , "/models"
-                                    , "/models/{id}"
-                                    , "/reservations"
-                                    , "/reservations/{id}"
-                                    , "/reservations/add"*/)
+                                , "/reservations/add")
                         .hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers("other_route_example/**")
                         .authenticated())

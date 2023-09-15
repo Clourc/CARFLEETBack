@@ -5,6 +5,7 @@ import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Vehicle;
 import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Controller;
@@ -34,8 +35,10 @@ public class VehicleController {
 
     @GetMapping(value = "/vehicles")
     @ResponseBody
-    public List<VehicleDto> getVehicles(@RequestParam(defaultValue = "", required = false) String energy,
-            @RequestParam(defaultValue = "", required = false) String type) {
+
+    public List<VehicleDto> getVehicles(@RequestParam Long fleetId,
+                                        @RequestParam(defaultValue = "", required = false) String energy,
+                                        @RequestParam(defaultValue = "", required = false) String type) {
         boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
         boolean energyCheck = energy.equals("essence") || energy.equals("électrique") || energy.equals("diesel");
         List<Vehicle> vehicles = new ArrayList<>();
@@ -44,18 +47,25 @@ public class VehicleController {
         }
         if (!type.isEmpty()) {
             if (!energy.isEmpty()) {
-                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(type, energy);
+                vehicles = vehicleRepository.findVehicleByTypeAndEnergy(fleetId, type, energy);
                 return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
-            vehicles = vehicleRepository.findVehicleByType(type);
+            vehicles = vehicleRepository.findVehicleByType(fleetId, type);
             return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
         } else {
             if (!energy.isEmpty()) {
-                vehicles = vehicleRepository.findVehicleByEnergy(energy);
+                vehicles = vehicleRepository.findVehicleByEnergy(fleetId ,energy);
                 return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
             }
         }
-        vehicles = vehicleRepository.findAll();
+        vehicles = vehicleRepository.findVehicleByFleet(fleetId);
+        return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
+    }
+
+    @GetMapping("/vehicles/fleet/{id}")
+    @ResponseBody
+    public List<VehicleDto> getVehicleByFleet(@PathVariable Long id) {
+        List<Vehicle> vehicles = vehicleRepository.findVehicleByFleet(id);
         return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
     }
 
@@ -72,8 +82,9 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseBody
-    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd){
+    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd) {
         Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
         newVehicle.setFleet(vehicleToAdd.getFleet());
         newVehicle.setModel(vehicleToAdd.getModel());
@@ -82,6 +93,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicles/{id}/delete")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteVehicleById(@PathVariable Long id) {
         Map<String, String> response = new HashMap<>();

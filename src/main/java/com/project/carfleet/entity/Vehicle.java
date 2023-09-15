@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class Vehicle {
-    
 
     public Vehicle(String licencePlate) {
         this.licencePlate = licencePlate;
@@ -41,6 +40,10 @@ public class Vehicle {
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to model
+    @JoinColumn(name = "model_id")
+    private Model model;
+
     public Fleet getFleet() {
         return fleet;
     }
@@ -48,10 +51,6 @@ public class Vehicle {
     public void setFleet(Fleet fleet) {
         this.fleet = fleet;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH) // Relation to model
-    @JoinColumn(name = "model_id")
-    private Model model;
 
     public Model getModel() {
         return model;
