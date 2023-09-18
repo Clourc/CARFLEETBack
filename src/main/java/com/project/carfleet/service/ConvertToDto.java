@@ -20,7 +20,7 @@ public class ConvertToDto {
     }
 
     public UserDto convertUserToDto(UserEntity user){
-        return new UserDto(user.getId(), user.getCp(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getPhone(), user.getNbLicence(), user.getRole());
+        return new UserDto(user.getId(), user.getCp(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getPhone(), user.getNbLicence(), user.getRole(), convertFleetToDto(user.getFleet()));
     }
 
     public ReservationsDto convertResaToDto(Reservations resa){

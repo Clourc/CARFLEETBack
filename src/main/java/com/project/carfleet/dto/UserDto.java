@@ -1,5 +1,6 @@
 package com.project.carfleet.dto;
 
+import com.project.carfleet.entity.Fleet;
 import com.project.carfleet.entity.Role;
 
 public class UserDto {
@@ -12,7 +13,9 @@ public class UserDto {
     private String phone;
     private String nbLicence;
     private Role role;
-    public UserDto(Long id, String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role){
+    private FleetDto fleet;
+
+    public UserDto(Long id, String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role, FleetDto fleet){
         this.id = id;
         this.CP = CP;
         this.firstName = firstName;
@@ -22,6 +25,7 @@ public class UserDto {
         this.phone = phone;
         this.nbLicence = nbLicence;
         this.role = role;
+        this.fleet = fleet;
     }
 
     public Long getId(){ return id; }
@@ -91,4 +95,11 @@ public class UserDto {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public FleetDto getFleet() {
+        return fleet;
+    }
+
+    public void setFleet(FleetDto fleet) { this.fleet = fleet; }
+
 }

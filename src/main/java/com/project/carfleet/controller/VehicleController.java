@@ -62,13 +62,6 @@ public class VehicleController {
         return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
     }
 
-    @GetMapping("/vehicles/fleet/{id}")
-    @ResponseBody
-    public List<VehicleDto> getVehicleByFleet(@PathVariable Long id) {
-        List<Vehicle> vehicles = vehicleRepository.findVehicleByFleet(id);
-        return convertToDto.convertListToDto(vehicles, convertToDto::convertVehicleToDto);
-    }
-
     @GetMapping("/vehicles/{id}")
     @ResponseBody
     public VehicleDto getVehicleById(@PathVariable Long id) {
@@ -82,7 +75,7 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles/add")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd) {
         Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
@@ -93,7 +86,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("vehicles/{id}/delete")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteVehicleById(@PathVariable Long id) {
         Map<String, String> response = new HashMap<>();

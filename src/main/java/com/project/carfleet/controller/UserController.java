@@ -34,7 +34,7 @@ public class UserController {
     private ConvertToDto convertToDto;
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     public List<UserDto> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
@@ -43,11 +43,11 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     @ResponseBody
-    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not found");
         }
-        Optional<UserEntity> optionalUser = userRepository.findById((long) id);
+        Optional<UserEntity> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             UserEntity user = optionalUser.get();
             return new ResponseEntity<>(convertToDto.convertUserToDto(user), HttpStatus.OK);
@@ -69,7 +69,7 @@ public class UserController {
 
     @DeleteMapping("/users/{id}/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteUser(@PathVariable long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ID");

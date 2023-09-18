@@ -14,11 +14,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
     private final RoleRepository roleRepository;
+    private final ConvertToDto convertToDto;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptEncoder, RoleRepository roleRepository){
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptEncoder, RoleRepository roleRepository, ConvertToDto convertToDto){
         this.userRepository = userRepository;
         this.bcryptEncoder = bcryptEncoder;
         this.roleRepository = roleRepository;
+        this.convertToDto = convertToDto;
     }
 
     public boolean checkHashedPassword(String password){
@@ -55,6 +57,7 @@ public class UserService {
         userDto.setPhone(user.getPhone());
         userDto.setNbLicence(user.getNbLicence());
         userDto.setRole(roleRepository.findById(roleId).get());
+        userDto.setFleet(convertToDto.convertFleetToDto(user.getFleet()));
         userDto.setPassword("hidden");
         return userDto;
     }
