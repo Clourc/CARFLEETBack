@@ -2,7 +2,11 @@ package com.project.carfleet.controller;
 
 import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
+import com.project.carfleet.entity.Fleet;
+import com.project.carfleet.entity.Model;
 import com.project.carfleet.entity.Vehicle;
+import com.project.carfleet.repository.FleetRepository;
+import com.project.carfleet.repository.ModelRepository;
 import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,10 +30,14 @@ import java.util.Optional;
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
+    private final FleetRepository fleetRepository;
+    private final ModelRepository modelRepository;
     private final ConvertToDto convertToDto;
 
-    public VehicleController(VehicleRepository injectedRepository, ConvertToDto convertToDto) {
-        this.vehicleRepository = injectedRepository;
+    public VehicleController(VehicleRepository vehicleRepository, FleetRepository fleetRepository, ModelRepository modelRepository, ConvertToDto convertToDto) {
+        this.vehicleRepository = vehicleRepository;
+        this.fleetRepository = fleetRepository;
+        this.modelRepository = modelRepository;
         this.convertToDto = convertToDto;
     }
 
@@ -75,18 +83,22 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles/add")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseBody
-    public VehicleDto postVehicle(@RequestBody Vehicle vehicleToAdd) {
+    public ResponseEntity<?> postVehicle(@RequestBody VehicleDto vehicleToAdd) {
+        Map<String, String> response = new HashMap<>();
         Vehicle newVehicle = new Vehicle(vehicleToAdd.getLicencePlate());
-        newVehicle.setFleet(vehicleToAdd.getFleet());
-        newVehicle.setModel(vehicleToAdd.getModel());
+        Fleet vehicleFleet = this.fleetRepository.findById(vehicleToAdd.getFleet().getId()).get();
+        Model vehicleModel = this.modelRepository.findById(vehicleToAdd.getModel().getId()).get();
+        newVehicle.setFleet(vehicleFleet);
+        newVehicle.setModel(vehicleModel);
         vehicleRepository.save(newVehicle);
-        return convertToDto.convertVehicleToDto(newVehicle);
+        response.put("message", "Vehicle successfully added");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("vehicles/{id}/delete")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseBody
     public ResponseEntity<?> deleteVehicleById(@PathVariable Long id) {
         Map<String, String> response = new HashMap<>();
