@@ -34,9 +34,10 @@ public class ReservationsController {
 
     @GetMapping("/reservations")
     @ResponseBody
-    public List<ReservationsDto> getAllReservations(@RequestParam(defaultValue = "", required = false) Long vehicleId,
-                                                    @RequestParam(defaultValue = "", required = false) Long userId,
-                                                    @RequestParam(defaultValue = "", required = false) String sortBy) {
+    public List<ReservationsDto> getAllReservations(
+            @RequestParam(defaultValue = "", required = false) Long vehicleId,
+            @RequestParam(defaultValue = "", required = false) Long userId,
+            @RequestParam(defaultValue = "", required = false) String sortBy) {
         List<Reservations> reservationsList;
         if (vehicleId != null) {
             if (sortBy.equals("ASC")) {
@@ -47,22 +48,24 @@ public class ReservationsController {
             return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
         }
         if (userId != null) {
+            if (userRepository.findById(userId).get().getRole().getType().equals("ADMIN")) {
+                Long fleetId = this.userRepository.findById(userId).get().getFleet().getId();
+                reservationsList = reservationsRepository.findAllResaByFleet(fleetId);
+                reservationsList.sort(Comparator.comparing(Reservations::getStart_Date));
+                if (sortBy.equals("ASC")) {
+                    return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+                }
+                Collections.reverse(reservationsList);
+                return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+            }
             if (sortBy.equals("ASC")) {
                 reservationsList = reservationsRepository.findResaByUserOrderByASC(userId);
                 return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
             }
-            if (userRepository.findById(userId).get().getRole().getType().equals("USER")) {
-                reservationsList = reservationsRepository.findResaByUserOrderByDESC(userId);
-                return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
-            }
-        }
-        reservationsList = reservationsRepository.findAll();
-        reservationsList.sort(Comparator.comparing(Reservations::getStart_Date));
-        if (sortBy.equals("ASC")) {
+            reservationsList = reservationsRepository.findResaByUserOrderByDESC(userId);
             return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
         }
-        Collections.reverse(reservationsList);
-        return convertToDto.convertListToDto(reservationsList, convertToDto::convertResaToDto);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Renseignez vehicleId ou userId");
     }
 
 

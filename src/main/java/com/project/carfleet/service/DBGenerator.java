@@ -277,27 +277,27 @@ public class DBGenerator {
 //Paris
         Reservations resa3 = new Reservations(new Date(1694163600000L), new Date(1694768400000L), "Test3");
         resa3.setUser(userRepository.findById(3L).get());
-        resa3.setVehicle(vehicleRepository.findById(1L).get());
+        resa3.setVehicle(vehicleRepository.findById(8L).get());
 
         Reservations resa7 = new Reservations(new Date(1694340000000L), new Date(1725962400000L), "Test7 en cours");
         resa7.setUser(userRepository.findById(3L).get());
-        resa7.setVehicle(vehicleRepository.findById(2L).get());
+        resa7.setVehicle(vehicleRepository.findById(9L).get());
 
         Reservations resa4 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test4 à venir");
         resa4.setUser(userRepository.findById(4L).get());
-        resa4.setVehicle(vehicleRepository.findById(6L).get());
+        resa4.setVehicle(vehicleRepository.findById(14L).get());
 //Marseille
         Reservations resa5 = new Reservations(new Date(1694336400000L), new Date(1694941200000L), "Test5");
         resa5.setUser(userRepository.findById(5L).get());
-        resa5.setVehicle(vehicleRepository.findById(4L).get());
+        resa5.setVehicle(vehicleRepository.findById(26L).get());
 
         Reservations resa8 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test8 à venir");
         resa8.setUser(userRepository.findById(5L).get());
-        resa8.setVehicle(vehicleRepository.findById(7L).get());
+        resa8.setVehicle(vehicleRepository.findById(27L).get());
 
         Reservations resa9 = new Reservations(new Date(1694340000000L), new Date(1725962400000L), "Test9 en cours");
         resa9.setUser(userRepository.findById(5L).get());
-        resa9.setVehicle(vehicleRepository.findById(3L).get());
+        resa9.setVehicle(vehicleRepository.findById(24L).get());
 
         List<Reservations> reservations = Arrays.asList(resa1, resa2, resa3, resa4, resa5, resa6, resa7, resa8, resa9);
         reservationsRepository.saveAll(reservations);

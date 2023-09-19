@@ -23,4 +23,7 @@ public interface ReservationsRepository extends JpaRepository<Reservations, Long
 
     @Query(value = "SELECT r.* FROM reservations AS r INNER JOIN user AS u ON r.user_id = u.id WHERE r.user_id = :userId ORDER BY start_date DESC", nativeQuery = true)
     public List<Reservations> findResaByUserOrderByDESC(@Param("userId") Long userId);
+
+    @Query(value = "SELECT r.*, f.id AS fleetId FROM reservations AS r INNER JOIN user AS u ON r.user_id = u.id INNER JOIN fleet AS f ON u.fleet_id = f.id WHERE f.id = :fleetId", nativeQuery = true)
+    public List<Reservations> findAllResaByFleet(@Param("fleetId") Long fleetId);
 }
