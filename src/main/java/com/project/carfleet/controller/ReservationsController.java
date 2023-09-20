@@ -18,7 +18,6 @@ import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReservationsController {
@@ -68,17 +67,16 @@ public class ReservationsController {
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Renseignez vehicleId ou userId");
     }
 
-
     @PostMapping("/reservations/add")
     @ResponseBody
     public ReservationsDto createReservations(@RequestBody ReservationsDto reservations) {
-        Reservations newResa = new Reservations(reservations.getStart_Date(), reservations.getEnd_Date(), reservations.getReason());
+        Reservations newResa = new Reservations(reservations.getStart_Date(), reservations.getEnd_Date(),
+                reservations.getReason());
         newResa.setVehicle(vehicleRepository.findById(reservations.getVehicle().getId()).get());
         newResa.setUser(userRepository.findById(reservations.getUser().getId()).get());
         reservationsRepository.save(newResa);
         return convertToDto.convertResaToDto(newResa);
     }
-
 
     @GetMapping("/reservations/{id}")
     @ResponseBody
@@ -97,14 +95,16 @@ public class ReservationsController {
 
     @DeleteMapping("/reservations/{id}/delete")
     @ResponseBody
-    public ResponseEntity<String> deleteReservations(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteReservations(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID invalide");
         }
 
         if (reservationsRepository.existsById(id)) {
             reservationsRepository.deleteById(id);
-            return ResponseEntity.ok("Réservations supprimées avec succès");
+            response.put("message", "Suppression réussie");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservations introuvables");
         }
