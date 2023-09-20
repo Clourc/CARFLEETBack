@@ -47,7 +47,7 @@ public class VehicleController {
     public List<VehicleDto> getVehicles(@RequestParam Long fleetId,
                                         @RequestParam(defaultValue = "", required = false) String energy,
                                         @RequestParam(defaultValue = "", required = false) String type) {
-        boolean typeCheck = type.equals("citadine") || type.equals("fourgon") || type.equals("berline");
+        boolean typeCheck = type.equals("citadine") || type.equals("utilitaire") || type.equals("berline");
         boolean energyCheck = energy.equals("essence") || energy.equals("électrique") || energy.equals("diesel");
         List<Vehicle> vehicles = new ArrayList<>();
         if ((!type.isEmpty() && !typeCheck) || (!energy.isEmpty() && !energyCheck)) {

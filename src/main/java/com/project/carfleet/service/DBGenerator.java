@@ -100,13 +100,13 @@ public class DBGenerator {
         Vehicle vehicle27 = new Vehicle("BO-901-FI");
         Vehicle vehicle28 = new Vehicle("TR-012-GJ");
 
-        Model model1 = new Model("renault", "https://i.imgur.com/FZ5BdEW.png", "électrique", "citadine", "ZOE R110", 5, 5);
-        Model model2 = new Model("renault", "https://i.imgur.com/52m5kEK.png", "essence", "citadine", "CLIO RS Line", 5, 5);
-        Model model3 = new Model("renault", "https://i.imgur.com/Ja7IsPL.jpg", "essence", "citadine", "KANGOO 3", 5, 5);
+        Model model1 = new Model("renault", "https://i.imgur.com/52m5kEK.png", "électrique", "citadine", "ZOE R110", 5, 5);
+        Model model2 = new Model("renault", "https://i.imgur.com/FZ5BdEW.png", "essence", "citadine", "CLIO RS Line", 5, 5);
+        Model model3 = new Model("renault", "https://i.imgur.com/Ja7IsPL.jpg", "essence", "utilitaire", "KANGOO 3", 5, 5);
         Model model4 = new Model("renault", "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
         Model model5 = new Model("citroen", "https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
-        Model model6 = new Model("peugeot", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "fourgon", "BOXER Asphalt 333", 4, 3);
-        Model model7 = new Model("renault", "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "fourgon", "TRAFIC Grand confort", 3, 4);
+        Model model6 = new Model("peugeot", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "utilitaire", "BOXER Asphalt 333", 4, 3);
+        Model model7 = new Model("renault", "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "utilitaire", "TRAFIC Grand confort", 3, 4);
 
         List<Vehicle> model1List = new ArrayList<>();
         model1List.add(vehicle1);
