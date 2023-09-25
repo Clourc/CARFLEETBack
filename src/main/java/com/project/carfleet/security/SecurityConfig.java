@@ -41,8 +41,7 @@ public class SecurityConfig {
                                 , "/fleets"
                                 , "/fleets/{id}/delete"
                                 , "/models/{id}/delete"
-                                , "/models/add"
-                                , "/reservations/{id}/delete")
+                                , "/models/add")
                         .hasAuthority("ADMIN")
                         .requestMatchers("/users/{id}"
                                 , "/users/retrieve"
@@ -53,7 +52,8 @@ public class SecurityConfig {
                                 , "/models/{id}"
                                 , "/reservations"
                                 , "/reservations/{id}"
-                                , "/reservations/add")
+                                , "/reservations/add"
+                                , "/reservations/{id}/delete")
                         .hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers("other_route_example/**")
                         .authenticated())
