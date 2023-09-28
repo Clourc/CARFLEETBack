@@ -19,7 +19,9 @@ public class DBGenerator {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bcryptEncoder;
 
-    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository, FleetRepository fleetRepository, ReservationsRepository reservationsRepository, UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
+    public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository,
+            FleetRepository fleetRepository, ReservationsRepository reservationsRepository,
+            UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
         this.modelRepository = modelRepository;
         this.vehicleRepository = vehicleRepository;
         this.fleetRepository = fleetRepository;
@@ -33,11 +35,16 @@ public class DBGenerator {
         Role user = roleRepository.findById(1L).get();
         Role admin = roleRepository.findById(2L).get();
 
-        UserEntity aurelie = new UserEntity("1234567A", "Aurelie", "Ziegler", "aurelie.ziegler@example.com", bcryptEncoder.encode("aurZIE123!"), "0601020304", "AZ123", admin);
-        UserEntity yannick = new UserEntity("2345678Y", "Yannick", "Minck", "yannickminck@example.com", bcryptEncoder.encode("yanMIN456!"), "0602030405", "YM456", user);
-        UserEntity jamal = new UserEntity("3456789J", "Jamal", "Ouldrabia", "jamal.ouldrabia@example.com", bcryptEncoder.encode("jamOUL789!"), "0603040506", "JO789", user);
-        UserEntity lucas = new UserEntity("4567890L", "Lucas", "Corbino", "lucas.corbino@example.com", bcryptEncoder.encode("lucCOR012!"), "0604050607", "LC012", admin);
-        UserEntity richard = new UserEntity("5678901R", "Richard", "Nguyen", "richard.nguyen@example.com", bcryptEncoder.encode("ricNGU345!"), "0605060708", "RN345", user);
+        UserEntity aurelie = new UserEntity("1234567A", "Aurelie", "Ziegler", "aurelie.ziegler@example.com",
+                bcryptEncoder.encode("aurZIE123!"), "0601020304", "AZ123", admin);
+        UserEntity yannick = new UserEntity("2345678Y", "Yannick", "Minck", "yannickminck@example.com",
+                bcryptEncoder.encode("yanMIN456!"), "0602030405", "YM456", user);
+        UserEntity jamal = new UserEntity("3456789J", "Jamal", "Ouldrabia", "jamal.ouldrabia@example.com",
+                bcryptEncoder.encode("jamOUL789!"), "0603040506", "JO789", user);
+        UserEntity lucas = new UserEntity("4567890L", "Lucas", "Corbino", "lucas.corbino@example.com",
+                bcryptEncoder.encode("lucCOR012!"), "0604050607", "LC012", admin);
+        UserEntity richard = new UserEntity("5678901R", "Richard", "Nguyen", "richard.nguyen@example.com",
+                bcryptEncoder.encode("ricNGU345!"), "0605060708", "RN345", user);
 
         Fleet strasbourg = new Fleet("Strasbourg");
         Fleet paris = new Fleet("Paris");
@@ -100,13 +107,20 @@ public class DBGenerator {
         Vehicle vehicle27 = new Vehicle("BO-901-FI");
         Vehicle vehicle28 = new Vehicle("TR-012-GJ");
 
-        Model model1 = new Model("renault", "https://i.imgur.com/52m5kEK.png", "électrique", "citadine", "ZOE R110", 5, 5);
-        Model model2 = new Model("renault", "https://i.imgur.com/FZ5BdEW.png", "essence", "citadine", "CLIO RS Line", 5, 5);
-        Model model3 = new Model("renault", "https://i.imgur.com/Ja7IsPL.jpg", "essence", "utilitaire", "KANGOO 3", 5, 5);
-        Model model4 = new Model("renault", "https://i.imgur.com/5Z2ZQ8u.jpg", "essence", "berline", "MEGANE 3 phase 3", 5, 5);
-        Model model5 = new Model("citroen", "https://i.imgur.com/ldO9jOD.jpg", "électrique", "berline", "e BERLINGO shine", 5, 7);
-        Model model6 = new Model("peugeot", "https://i.imgur.com/Oy4emF7.jpg", "diesel", "utilitaire", "BOXER Asphalt 333", 4, 3);
-        Model model7 = new Model("renault", "https://i.imgur.com/ZOUyLBS.jpg", "diesel", "utilitaire", "TRAFIC Grand confort", 3, 4);
+        Model model1 = new Model("renault", "https://i.imgur.com/8Ok362f.png", "électrique", "citadine", "ZOE R110", 5,
+                5);
+        Model model2 = new Model("renault", "https://i.imgur.com/4VqDMOT.png", "essence", "citadine", "CLIO RS Line", 5,
+                5);
+        Model model3 = new Model("renault", "https://i.imgur.com/H3I5CAE.png", "essence", "utilitaire", "KANGOO 3", 5,
+                5);
+        Model model4 = new Model("renault", "https://i.imgur.com/sK6jeqX.png", "essence", "berline", "MEGANE 3 phase 3",
+                5, 5);
+        Model model5 = new Model("citroen", "https://i.imgur.com/68KZbAH.png", "électrique", "berline",
+                "e BERLINGO shine", 5, 7);
+        Model model6 = new Model("peugeot", "https://i.imgur.com/81bHxdH.png", "diesel", "utilitaire",
+                "BOXER Asphalt 333", 4, 3);
+        Model model7 = new Model("renault", "https://i.imgur.com/tWEC2Ht.png", "diesel", "utilitaire",
+                "TRAFIC Grand confort", 3, 4);
 
         List<Vehicle> model1List = new ArrayList<>();
         model1List.add(vehicle1);
@@ -164,7 +178,6 @@ public class DBGenerator {
         vehicle18.setFleet(lyon);
         vehicle25.setFleet(marseille);
 
-
         List<Vehicle> model5List = new ArrayList<>();
         model5List.add(vehicle5);
         model5List.add(vehicle12);
@@ -178,7 +191,6 @@ public class DBGenerator {
         vehicle12.setFleet(paris);
         vehicle19.setFleet(lyon);
         vehicle26.setFleet(marseille);
-
 
         List<Vehicle> model6List = new ArrayList<>();
         model6List.add(vehicle6);
@@ -245,7 +257,10 @@ public class DBGenerator {
         vehicleListMarseille.add(vehicle28);
 
         List<Model> models = Arrays.asList(model1, model2, model3, model4, model5, model6, model7);
-        List<Vehicle> vehicles = Arrays.asList(vehicle1, vehicle2, vehicle3, vehicle4, vehicle5, vehicle6, vehicle7, vehicle8, vehicle9, vehicle10, vehicle11, vehicle12, vehicle13, vehicle14, vehicle15, vehicle16, vehicle17, vehicle18, vehicle19, vehicle20, vehicle21, vehicle22, vehicle23, vehicle24, vehicle25, vehicle26, vehicle27, vehicle28);
+        List<Vehicle> vehicles = Arrays.asList(vehicle1, vehicle2, vehicle3, vehicle4, vehicle5, vehicle6, vehicle7,
+                vehicle8, vehicle9, vehicle10, vehicle11, vehicle12, vehicle13, vehicle14, vehicle15, vehicle16,
+                vehicle17, vehicle18, vehicle19, vehicle20, vehicle21, vehicle22, vehicle23, vehicle24, vehicle25,
+                vehicle26, vehicle27, vehicle28);
 
         modelRepository.saveAll(models);
         vehicleRepository.saveAll(vehicles);
@@ -262,7 +277,7 @@ public class DBGenerator {
     }
 
     public void generateReservations() {
-//Strasbourg
+        // Strasbourg
         Reservations resa1 = new Reservations(new Date(1693994400000L), new Date(1694599200000L), "Test1");
         resa1.setUser(userRepository.findById(1L).get());
         resa1.setVehicle(vehicleRepository.findById(1L).get());
@@ -274,7 +289,7 @@ public class DBGenerator {
         Reservations resa6 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test6 à venir");
         resa6.setUser(userRepository.findById(2L).get());
         resa6.setVehicle(vehicleRepository.findById(6L).get());
-//Paris
+        // Paris
         Reservations resa3 = new Reservations(new Date(1694163600000L), new Date(1694768400000L), "Test3");
         resa3.setUser(userRepository.findById(3L).get());
         resa3.setVehicle(vehicleRepository.findById(8L).get());
@@ -286,7 +301,7 @@ public class DBGenerator {
         Reservations resa4 = new Reservations(new Date(1725963000000L), new Date(1726567800000L), "Test4 à venir");
         resa4.setUser(userRepository.findById(4L).get());
         resa4.setVehicle(vehicleRepository.findById(14L).get());
-//Marseille
+        // Marseille
         Reservations resa5 = new Reservations(new Date(1694336400000L), new Date(1694941200000L), "Test5");
         resa5.setUser(userRepository.findById(5L).get());
         resa5.setVehicle(vehicleRepository.findById(26L).get());
