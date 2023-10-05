@@ -1,6 +1,7 @@
 package com.project.carfleet.jwt;
 
 import com.project.carfleet.dto.UserDto;
+import com.project.carfleet.security.KeyBytes;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,10 +17,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtil {
-    private Key getKey() {
-        byte[] keyBytes = Decoders.BASE64.decode("SECRETKEYquiEstSuperLongSaGrandJeTeLeDisMoiMonAmi");
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+    private final KeyBytes keyBytes;
+    public JwtUtil(KeyBytes keyBytes) { this.keyBytes = keyBytes; }
 
     private String createToken(Map<String, Object> claims, String subject) {
         System.out.println("Claims " + claims + "Subject " + subject);
@@ -29,7 +28,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2))
-                .signWith(getKey(), SignatureAlgorithm.HS256)
+                .signWith(keyBytes.getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -46,7 +45,7 @@ public class JwtUtil {
     }
 
     public Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(keyBytes.getKey()).build().parseClaimsJws(token).getBody();
     }
 
     public String extractCP(String token){ return extractClaim(token, Claims::getSubject); }
