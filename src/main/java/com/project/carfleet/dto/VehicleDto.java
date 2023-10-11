@@ -16,7 +16,9 @@ public class VehicleDto {
         this.model = model;
     }
 
-    public Long getId(){ return id; }
+    public Long getId() {
+        return id;
+    }
 
     public String getLicencePlate() {
         return licencePlate;

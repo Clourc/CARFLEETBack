@@ -10,22 +10,22 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class CarfleetApplication {
 
-	private final DBGenerator generatorService;
+    private final DBGenerator generatorService;
 
-	public CarfleetApplication(DBGenerator generatorService){
-		this.generatorService = generatorService;
-	}
+    public CarfleetApplication(DBGenerator generatorService) {
+        this.generatorService = generatorService;
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(CarfleetApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CarfleetApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner run() throws Exception {
-		return (String[] args) -> {
-			generatorService.generateRoles();
-		};
-	}
+    @Bean
+    public CommandLineRunner run() throws Exception {
+        return (String[] args) -> {
+            generatorService.generateRoles();
+        };
+    }
 }
 
 

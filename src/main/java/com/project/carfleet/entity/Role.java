@@ -14,8 +14,12 @@ public class Role {
 
     private String type;
 
-    public Role(){}
-    public Role(String type){ this.type = type; }
+    public Role() {
+    }
+
+    public Role(String type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

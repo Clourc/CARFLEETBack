@@ -1,6 +1,5 @@
 package com.project.carfleet.entity;
 
-import com.project.carfleet.dto.ReservationsDto;
 import jakarta.persistence.*;
 import java.util.Date;
 

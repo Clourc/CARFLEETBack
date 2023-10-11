@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 public class UserDetailsService {
     private final UserRepository userRepository;
 
-    public UserDetailsService(UserRepository userRepository){ this.userRepository = userRepository; }
+    public UserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-    public UserPrincipal loadUserByCP(String CP){
-        if(userRepository.findByCP(CP).isPresent()){
+    public UserPrincipal loadUserByCP(String CP) {
+        if (userRepository.findByCP(CP).isPresent()) {
             return new UserPrincipal(userRepository.findByCP(CP).get());
         }
         throw new RuntimeException("Aucun utilisateur trouvé par ce numéro de CP");

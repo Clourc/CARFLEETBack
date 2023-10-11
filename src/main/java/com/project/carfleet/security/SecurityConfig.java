@@ -33,9 +33,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/users/login", "/users").permitAll()
-                        .requestMatchers(                                 "/users/{id}/delete"
+                                "/users/login").permitAll()
+                        .requestMatchers("/users/{id}/delete"
                                 , "/users/register"
+                                , "/users"
                                 , "/vehicles/{id}/delete"
                                 , "/vehicles/add"
                                 , "/fleets"
@@ -58,7 +59,6 @@ public class SecurityConfig {
                         .requestMatchers("other_route_example/**")
                         .authenticated())
                 .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("")
                         .disable()
                 )
                 .sessionManagement(session -> session

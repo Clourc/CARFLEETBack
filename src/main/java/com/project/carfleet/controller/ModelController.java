@@ -65,8 +65,4 @@ public class ModelController {
         modelRepository.deleteById(modelId);
         return "delete ok";
     }
-
-
-
-
 }

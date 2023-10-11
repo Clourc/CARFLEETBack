@@ -40,7 +40,6 @@ public class JwtUtil {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
-        System.out.println("claims " + claims);
         return claimsResolver.apply(claims);
     }
 
@@ -56,8 +55,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserPrincipal userPrincipal){
         final String CP = extractCP(token);
-        System.out.println("CP extracted from token " + CP);
-        System.out.println("data from userPrincipal " + userPrincipal.getCP());
         return (CP.equals(userPrincipal.getCP()) && !isTokenExpired(token));
     }
 }

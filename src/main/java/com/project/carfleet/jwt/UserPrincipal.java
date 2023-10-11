@@ -13,31 +13,47 @@ public class UserPrincipal implements UserDetails {
     UserEntity user;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getRole().getType()));
         return authorities;
     }
 
-    public UserPrincipal(UserEntity user) { this.user = user; }
+    public UserPrincipal(UserEntity user) {
+        this.user = user;
+    }
 
     @Override
-    public String getPassword(){ return user.getPassword(); }
+    public String getPassword() {
+        return user.getPassword();
+    }
 
     @Override
-    public String getUsername(){ return user.getFirstName() + user.getLastName(); }
+    public String getUsername() {
+        return user.getFirstName() + user.getLastName();
+    }
 
-    public String getCP(){ return user.getCp(); }
-
-    @Override
-    public boolean isAccountNonExpired(){ return false; }
-
-    @Override
-    public boolean isAccountNonLocked(){ return false; }
+    public String getCP() {
+        return user.getCp();
+    }
 
     @Override
-    public boolean isCredentialsNonExpired(){ return false; }
+    public boolean isAccountNonExpired() {
+        return false;
+    }
 
     @Override
-    public boolean isEnabled(){ return true; }
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

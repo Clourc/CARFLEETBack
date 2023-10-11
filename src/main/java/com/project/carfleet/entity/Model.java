@@ -70,7 +70,6 @@ public class Model {
         this.nbSeats = nbSeats;
     }
 
-
     public String getType() {
         return type;
     }

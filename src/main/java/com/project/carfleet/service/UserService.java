@@ -16,15 +16,15 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final ConvertToDto convertToDto;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptEncoder, RoleRepository roleRepository, ConvertToDto convertToDto){
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bcryptEncoder, RoleRepository roleRepository, ConvertToDto convertToDto) {
         this.userRepository = userRepository;
         this.bcryptEncoder = bcryptEncoder;
         this.roleRepository = roleRepository;
         this.convertToDto = convertToDto;
     }
 
-    public boolean checkHashedPassword(String password){
-        if(password != null){
+    public boolean checkHashedPassword(String password) {
+        if (password != null) {
             Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=\\S+$).{8,}");
             return pattern.matcher(password).matches();
         } else {
@@ -32,21 +32,20 @@ public class UserService {
         }
     }
 
-    // Login
-    public boolean verifyHashedPasswordDuringLogin(String password, String hashedPassword){
+    public boolean verifyHashedPasswordDuringLogin(String password, String hashedPassword) {
         return bcryptEncoder.matches(password, hashedPassword);
     }
 
-    public UserEntity getUserByCP(String CP){
-        if(userRepository.findByCP(CP).isPresent()){
+    public UserEntity getUserByCP(String CP) {
+        if (userRepository.findByCP(CP).isPresent()) {
             return userRepository.findByCP(CP).get();
         }
         throw new RuntimeException("Le CP n'existe pas");
     }
 
-    public UserDto login(UserDto userDto){
+    public UserDto login(UserDto userDto) {
         UserEntity user = getUserByCP(userDto.getCP());
-        if(!verifyHashedPasswordDuringLogin(userDto.getPassword(), user.getPassword())){
+        if (!verifyHashedPasswordDuringLogin(userDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Mot de passe incorrect");
         }
         Long roleId = user.getRole().getId();
@@ -62,9 +61,8 @@ public class UserService {
         return userDto;
     }
 
-    //Register ?
+    public boolean checkCP(String CP) {
+        return userRepository.findByCP(CP).isEmpty();
+    }
 
-    public boolean checkCP(String CP){ return userRepository.findByCP(CP).isEmpty(); }
-
-    //public UserDto register(UserDto userDto){}
 }

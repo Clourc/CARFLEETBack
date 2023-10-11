@@ -15,7 +15,7 @@ public class UserDto {
     private Role role;
     private FleetDto fleet;
 
-    public UserDto(Long id, String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role, FleetDto fleet){
+    public UserDto(Long id, String CP, String firstName, String lastName, String email, String password, String phone, String nbLicence, Role role, FleetDto fleet) {
         this.id = id;
         this.CP = CP;
         this.firstName = firstName;
@@ -28,9 +28,13 @@ public class UserDto {
         this.fleet = fleet;
     }
 
-    public Long getId(){ return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id){ this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCP() {
         return CP;
@@ -100,6 +104,8 @@ public class UserDto {
         return fleet;
     }
 
-    public void setFleet(FleetDto fleet) { this.fleet = fleet; }
+    public void setFleet(FleetDto fleet) {
+        this.fleet = fleet;
+    }
 
 }

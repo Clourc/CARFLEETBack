@@ -1,6 +1,5 @@
 package com.project.carfleet.controller;
 
-import com.project.carfleet.dto.ModelDto;
 import com.project.carfleet.dto.VehicleDto;
 import com.project.carfleet.entity.Fleet;
 import com.project.carfleet.entity.Model;
@@ -11,7 +10,6 @@ import com.project.carfleet.service.ConvertToDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Controller;
 
 import com.project.carfleet.repository.VehicleRepository;
@@ -26,7 +24,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200") // autorise les requêtes provenant du domaine "http://localhost:4200".
+@CrossOrigin(origins = "http://localhost:4200")
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
@@ -43,7 +41,6 @@ public class VehicleController {
 
     @GetMapping(value = "/vehicles")
     @ResponseBody
-
     public List<VehicleDto> getVehicles(@RequestParam Long fleetId,
                                         @RequestParam(defaultValue = "", required = false) String energy,
                                         @RequestParam(defaultValue = "", required = false) String type) {
@@ -110,5 +107,4 @@ public class VehicleController {
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found");
     }
-
 }

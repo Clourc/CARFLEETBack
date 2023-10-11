@@ -30,9 +30,9 @@ public class UserController {
     private JwtUtil jwtUtil;
     @Autowired
     private UserService userService;
+
     @Autowired
     private ConvertToDto convertToDto;
-
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
@@ -74,7 +74,6 @@ public class UserController {
         if (id <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ID");
         }
-
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
             return ResponseEntity.ok("User deleted successfully");

@@ -4,9 +4,9 @@ import com.project.carfleet.entity.Reservations;
 
 import java.util.Date;
 
-public class ReservationsDto{
+public class ReservationsDto {
 
-private Long id;
+    private Long id;
     private Date start_Date;
     private Date end_Date;
     private String reason;
@@ -22,7 +22,10 @@ private Long id;
         this.user = user;
     }
 
-    public Long getId(){ return id; }
+    public Long getId() {
+        return id;
+    }
+
     public Date getStart_Date() {
         return start_Date;
     }

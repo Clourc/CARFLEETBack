@@ -18,7 +18,6 @@ public class Fleet {
     private String place;
 
     public Fleet() {
-
     }
 
     public long getId() {

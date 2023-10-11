@@ -1,4 +1,5 @@
 package com.project.carfleet.repository;
+
 import com.project.carfleet.entity.Reservations;
 import com.project.carfleet.entity.Vehicle;
 import org.springframework.data.domain.Sort;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ReservationsRepository extends JpaRepository<Reservations, Long> {
-    
+
     @Query(value = "SELECT r.* FROM reservations AS r INNER JOIN vehicle AS v ON r.vehicle_id = v.id WHERE r.vehicle_id = :vehicleId ORDER BY start_date ASC", nativeQuery = true)
     public List<Reservations> findResaByVehicleOrderByASC(@Param("vehicleId") Long vehicleId);
 

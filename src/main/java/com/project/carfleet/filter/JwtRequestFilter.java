@@ -20,7 +20,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
-    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService){
+    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
@@ -37,17 +37,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String CP = null;
         String token = null;
 
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
             CP = jwtUtil.extractCP(token);
         }
 
-        if(CP != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (CP != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserPrincipal userPrincipal = this.userDetailsService.loadUserByCP(CP);
-            System.out.println("jwtUtil validateToken " + jwtUtil.validateToken(token, userPrincipal));
             System.out.println("userPrincipal authorities " + userPrincipal.getAuthorities());
 
-            if(jwtUtil.validateToken(token, userPrincipal)){
+            if (jwtUtil.validateToken(token, userPrincipal)) {
                 var usernamePasswordAuthentification = new UsernamePasswordAuthenticationToken(
                         userPrincipal,
                         null,
@@ -56,7 +55,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 usernamePasswordAuthentification.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
-                System.out.println("usernamePasswordAuthenticationToken " + usernamePasswordAuthentification);
                 SecurityContextHolder
                         .getContext()
                         .setAuthentication(usernamePasswordAuthentification);

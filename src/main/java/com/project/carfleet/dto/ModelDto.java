@@ -11,7 +11,6 @@ public class ModelDto {
     private int nbDoors;
     private int nbSeats;
 
-
     public ModelDto(Long id, String brand, String image, String energy, String type, String modelName, int nbDoors, int nbSeats) {
         this.id = id;
         this.brand = brand;

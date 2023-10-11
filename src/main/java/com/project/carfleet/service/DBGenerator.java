@@ -20,8 +20,8 @@ public class DBGenerator {
     private final BCryptPasswordEncoder bcryptEncoder;
 
     public DBGenerator(ModelRepository modelRepository, VehicleRepository vehicleRepository,
-            FleetRepository fleetRepository, ReservationsRepository reservationsRepository,
-            UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
+                       FleetRepository fleetRepository, ReservationsRepository reservationsRepository,
+                       UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bcryptEncoder) {
         this.modelRepository = modelRepository;
         this.vehicleRepository = vehicleRepository;
         this.fleetRepository = fleetRepository;

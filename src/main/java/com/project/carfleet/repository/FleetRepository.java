@@ -15,5 +15,4 @@ public interface FleetRepository extends JpaRepository<Fleet, Long> {
 
     @Query("SELECT new com.project.carfleet.dto.FleetDto(id, place) FROM Fleet  WHERE id = ?1")
     FleetDto findFleetDtoById(long id);
-
 }
